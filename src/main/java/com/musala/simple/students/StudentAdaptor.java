@@ -12,7 +12,7 @@ public class StudentAdaptor {
 
 	public static final Student toStudentObject(DBObject dbObject) {
 
-		dbObject.toMap();
+		//convert from DB obj to Student object
 
 		return null;
 	}
