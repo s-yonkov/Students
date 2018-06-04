@@ -1,0 +1,23 @@
+{  
+	"students" :
+  [
+		{    
+			"id": 1,    
+			"name": "Alex Kostadinov",    
+			"age": 26,    
+			"grade": 11 
+		},  
+		{  
+			"id": 2,
+			"name": "Ivan Ivanov",
+			"age": 22,
+			"grade": 11 
+		},  
+		{
+			"id": 3,
+			"name": "Petar Petrov",
+			"age": 33,
+			"grade": 13
+		} 
+    ]
+} 
