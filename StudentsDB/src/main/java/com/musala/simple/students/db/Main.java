@@ -1,10 +1,9 @@
-package com.musala.simple.students;
+package com.musala.simple.students.db;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import com.google.gson.Gson;
@@ -16,13 +15,13 @@ public class Main {
 
 		Gson gson = new Gson();
 		BufferedReader br = null;
-		ClassLoader classLoader = new Main().getClass().getClassLoader();
-		File bkpFile = new File(classLoader.getResource("backup.json").getFile());
+		// Will modofy once we have more than one DB - it may change to new MySqlDB
+		DataBase db = new MongoDB();
 
 		if (args.length != 0) {
-			// If the passed path is incorrect and there is available bkp file
-			if (!(fileExists(args[0])) && (bkpFile.exists() && !(bkpFile.isDirectory()))) {
-				printFromBkp(bkpFile);
+			// If the passed path is incorrect and the db is not empty
+			if (!(fileExists(args[0])) && (!db.isEmpty())) {
+				printFromBkp(db.getDb());
 			}
 		}
 
@@ -31,7 +30,7 @@ public class Main {
 			// If the file exists parsing the JSON in StudentGroup
 			StudentGroup students = gson.fromJson(br, StudentGroup.class);
 			// Creating bkp file with the available information
-			createBackup(students, bkpFile);
+			createBackup(students, db);
 
 			if (args.length == 1) {
 				// If only one argument is passed printing the entire info
@@ -73,34 +72,17 @@ public class Main {
 		}
 	}
 
-	private static void printFromBkp(File bkpFile) {
-		Gson gson = new Gson();
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(bkpFile));
-			StudentGroup studentsBkp = gson.fromJson(br, StudentGroup.class);
-			printAllElements(studentsBkp);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+	private static void printFromBkp(StudentGroup studentGroup) {
+		printAllElements(studentGroup);
 	}
 
-	private static void createBackup(StudentGroup students, File bkpFile) {
-		try {
-			Gson gson = new Gson();
-			String jsonString = gson.toJson(students);
-			FileWriter fileWriter = new FileWriter(bkpFile);
-			fileWriter.write(jsonString);
-			fileWriter.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	private static void createBackup(StudentGroup students, DataBase db) {
+		db.createDb(students);
 	}
 
 	public static void printAllElements(StudentGroup students) {
 		if (students != null) {
-			for (Student student : students.getStudents()) {
-				student.printInfo();
-			}
+			students.getStudents().forEach(student -> student.printInfo());
 		}
 	}
 

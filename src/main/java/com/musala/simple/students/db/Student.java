@@ -1,4 +1,4 @@
-package com.musala.simple.students;
+package com.musala.simple.students.db;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

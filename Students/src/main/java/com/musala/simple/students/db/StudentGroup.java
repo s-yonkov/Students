@@ -1,4 +1,4 @@
-package com.musala.simple.students;
+package com.musala.simple.students.db;
 
 import java.util.List;
 
