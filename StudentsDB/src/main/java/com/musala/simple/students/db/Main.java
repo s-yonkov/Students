@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -13,6 +16,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		final Logger slf4jLogger = LoggerFactory.getLogger(Main.class);
 		Gson gson = new Gson();
 		BufferedReader br = null;
 		// Will modofy once we have more than one DB - it may change to new MySqlDB
@@ -21,7 +25,7 @@ public class Main {
 		if (args.length != 0) {
 			// If the passed path is incorrect and the db is not empty
 			if (!(fileExists(args[0])) && (!db.isEmpty())) {
-				printFromBkp(db.getDb());
+				printFromBkp(db.getStudents());
 			}
 		}
 
@@ -41,7 +45,7 @@ public class Main {
 				if (id <= students.getStudents().size()) {
 					students.getStudentById(id - 1).printInfo();
 				} else {
-					System.out.println("Requested student does not exist in the data");
+					slf4jLogger.info("Requested student does not exist in the data");
 					printAllElements(students);
 				}
 			}
@@ -77,7 +81,7 @@ public class Main {
 	}
 
 	private static void createBackup(StudentGroup students, DataBase db) {
-		db.createDb(students);
+		db.insertStudents(students);
 	}
 
 	public static void printAllElements(StudentGroup students) {

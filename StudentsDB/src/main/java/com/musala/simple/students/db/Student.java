@@ -1,5 +1,8 @@
 package com.musala.simple.students.db;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -17,6 +20,8 @@ public class Student {
 	@SerializedName("grade")
 	@Expose
 	private Integer grade;
+
+	final Logger slf4jLogger = LoggerFactory.getLogger(Main.class);
 
 	public Integer getId() {
 		return id;

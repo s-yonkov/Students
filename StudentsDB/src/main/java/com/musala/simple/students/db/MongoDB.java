@@ -9,12 +9,14 @@ public class MongoDB implements DataBase {
 	private final MongoClient mongoClient;
 	private DB database;
 	private DBCollection collection;
+	private ObjectMaper mapper;
 
 	public MongoDB() {
 
 		mongoClient = new MongoClient();
 		database = mongoClient.getDB("studentsDB");
 		collection = database.getCollection("studentsCollection");
+		mapper = new MongoObjectMapper();
 	}
 
 	public DBCollection getCollection() {
@@ -23,33 +25,22 @@ public class MongoDB implements DataBase {
 
 	@Override
 	public void insert(Student student) {
-
+		this.collection.insert(mapper.toDBObject(student));
 	}
 
 	@Override
 	public Student getStudentById(int id) {
-		return null;
+		return this.getStudents().getStudentById(id);
 	}
 
 	@Override
-	public void deleteDb() {
-		this.collection.drop();
+	public void insertStudents(StudentGroup students) {
+		students.getStudents().forEach(student -> this.collection.insert(mapper.toDBObject(student)));
 	}
 
 	@Override
-	public void updateDb(StudentGroup students) {
-
-	}
-
-	@Override
-	public void createDb(StudentGroup students) {
-		students.getStudents().forEach(student -> this.collection.insert(MongoObjectMapper.toDBObject(student)));
-	}
-
-	@Override
-	public StudentGroup getDb() {
-
-		return MongoObjectMapper.toStudentGroup(this.collection);
+	public StudentGroup getStudents() {
+		return mapper.toStudentGroup(this.collection);
 	}
 
 	@Override
