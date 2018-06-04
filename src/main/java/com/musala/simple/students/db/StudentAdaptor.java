@@ -1,4 +1,4 @@
-package com.musala.simple.students;
+package com.musala.simple.students.db;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
