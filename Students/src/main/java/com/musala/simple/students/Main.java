@@ -12,22 +12,21 @@ import com.google.gson.JsonSyntaxException;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws StudentDataParsingException {
 
 		Gson gson = new Gson();
-		BufferedReader br = null;
 		ClassLoader classLoader = new Main().getClass().getClassLoader();
-		File bkpFile = new File(classLoader.getResource("backup.json").getFile());
+		final File bkpFile = new File(classLoader.getResource("backup.json").getFile());
 
-		if (args.length != 0) {
+		if (args.length != 0 && args != null) {
 			// If the passed path is incorrect and there is available bkp file
 			if (!(fileExists(args[0])) && (bkpFile.exists() && !(bkpFile.isDirectory()))) {
 				printFromBkp(bkpFile);
 			}
 		}
 
-		try {
-			br = new BufferedReader(new FileReader(new File(args[0])));
+		try (BufferedReader br = new BufferedReader(new FileReader(new File(args[0])));) {
+
 			// If the file exists parsing the JSON in StudentGroup
 			StudentGroup students = gson.fromJson(br, StudentGroup.class);
 			// Creating bkp file with the available information
@@ -46,20 +45,14 @@ public class Main {
 					printAllElements(students);
 				}
 			}
-		} catch (FileNotFoundException e) {
-			throw new IllegalArgumentException("The file is not found");
-		} catch (JsonSyntaxException e) {
-			throw new IllegalArgumentException("The file is not valid or malforemd");
-		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new IllegalArgumentException("No arguments are passed.");
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+		} catch (FileNotFoundException fileNotFound) {
+			throw new StudentDataParsingException("The file is not found", fileNotFound);
+		} catch (JsonSyntaxException jsonSyntaxException) {
+			throw new StudentDataParsingException("The file is not valid or malforemd", jsonSyntaxException);
+		} catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException) {
+			throw new StudentDataParsingException("No arguments are passed.", arrayIndexOutOfBoundsException);
+		} catch (IOException ioException) {
+			throw new StudentDataParsingException("Could not retrieve info from the file", ioException);
 		}
 
 	}
