@@ -18,8 +18,8 @@ public class Main {
 
 		final Logger logger = LoggerFactory.getLogger(Main.class);
 		Gson gson = new Gson();
-		// Will modofy once we have more than one DB - it may change to new MySqlDB
-		DataBase db = new MongoDB();
+		// Will modify once we have more than one DB - it may change to new MySqlDB
+		DataBase db = new MySqlDB();
 
 		if (args.length != 0 && args != null) {
 			// If the passed path is incorrect and the db is not empty
@@ -77,7 +77,7 @@ public class Main {
 	}
 
 	public static void printAllElements(StudentGroup students) {
-		if (students != null) {
+		if (students.getStudents() != null) {
 			students.getStudents().forEach(student -> student.printInfo());
 		}
 	}

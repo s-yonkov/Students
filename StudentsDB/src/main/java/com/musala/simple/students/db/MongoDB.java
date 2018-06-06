@@ -9,7 +9,7 @@ public class MongoDB implements DataBase {
 	private final MongoClient mongoClient;
 	private DB database;
 	private DBCollection collection;
-	private ObjectMaper mapper;
+	private MongoObjectMapper mapper;
 
 	public MongoDB() {
 

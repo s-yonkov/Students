@@ -21,7 +21,7 @@ public class Student {
 	@Expose
 	private Integer grade;
 
-	final Logger slf4jLogger = LoggerFactory.getLogger(Student.class);
+	final Logger logger = LoggerFactory.getLogger(Student.class);
 
 	public Integer getId() {
 		return id;
@@ -56,6 +56,6 @@ public class Student {
 	}
 
 	public void printInfo() {
-		slf4jLogger.info("Id: {}, Name: {}, age: {}, grade: {} \n", this.id, this.name, this.age, this.grade);
+		logger.info("Id: {}, Name: {}, age: {}, grade: {} \n", this.id, this.name, this.age, this.grade);
 	}
 }

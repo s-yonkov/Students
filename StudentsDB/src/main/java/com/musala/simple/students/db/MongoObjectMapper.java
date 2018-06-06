@@ -6,7 +6,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
-public class MongoObjectMapper implements ObjectMaper {
+public class MongoObjectMapper {
 
 	public DBObject toDBObject(Student student) {
 		return new BasicDBObject("_id", student.getId()).append("name", student.getName())
