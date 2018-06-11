@@ -7,7 +7,7 @@ A simple program which is parsing info from JSON file(the path of the file is pa
 The program accepts up to ***3*** arguments.
 1. The first argument should always be a valid path to a file like ```C:\ExampleFolder\TargetFolder\targetFile.json```.
 2. The second argument is optional and should be an integer number and a valid ID from the file.
-3. The third argument is also optional and should be a short word for noting which DB to be used or if both DB should be used - possible values of the third argument - ```Mongo```, ```MySql``` or ```Both```. The input is ***not*** case sensitive.
+3. The third argument is also optional and should be a short word for which DB to be used or if both DB should be used - possible values of the third argument - ```Mongo```, ```MySql``` or ```Both```. The input is ***not*** case sensitive.
 
 ## Possible outputs ##
 
