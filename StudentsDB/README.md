@@ -2,14 +2,20 @@
 
 A simple program which is parsing info from JSON file(the path of the file is passed by the user) into Java objects. The program is storing the data in a database. The user can choose which database(DB) to use - relational DB(MySQL) or non relational/document oriented DB(MongoDB) or to use both DBs at the same time.
 
+
+
 ## Possible inputs ##
+
+
 
 The program accepts up to ***3*** arguments.
 1. The first argument should always be a valid path to a file like ```C:\ExampleFolder\TargetFolder\targetFile.json```.
 2. The second argument is optional and should be an integer number and a valid ID from the file.
 3. The third argument is also optional and should be a short word for which DB to be used or if both DB should be used - possible values of the third argument - ```Mongo```, ```MySql``` or ```Both```. The input is ***not*** case sensitive.
 
+
 ## Possible outputs ##
+
 
 The output depends on the input format, below are listed example possible outputs:
 
@@ -30,4 +36,7 @@ The output depends on the input format, below are listed example possible output
    * The third argument is for choosing which DB to be used(or both) for storing the data. ```Mongo``` or ```MySql``` will store the data  respectively in Mongo DB or in MySQL, if ```Both``` is passed the data will be stored in both DBs.
    
 
-  
+## Technical requrenments ##
+In order the code to work locally some aditional software should be installed/setup
+
+### Instal and setup Maven ###
