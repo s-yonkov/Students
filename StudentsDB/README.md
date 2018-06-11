@@ -36,7 +36,17 @@ The output depends on the input format, below are listed example possible output
    * The third argument is for choosing which DB to be used(or both) for storing the data. ```Mongo``` or ```MySql``` will store the data  respectively in Mongo DB or in MySQL, if ```Both``` is passed the data will be stored in both DBs.
    
 
-## Technical requrenments ##
+## Technical requirements ##
+
 In order the code to work locally some aditional software should be installed/setup
 
 ### Instal and setup Maven ###
+
+Maven should be installed in order all dependencies(needed libraries and etc) to be downloaded.
+
+* **Download** - Maven can be downloaded from http://maven.apache.org/download.cgi
+* **Installing** - It can be easily installed and adjusted by following this example video - 
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=Jtj-0yhox5s
+" target="_blank"><img src="http://img.youtube.com/vi/Jtj-0yhox5s/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
