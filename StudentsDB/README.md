@@ -40,6 +40,10 @@ The output depends on the input format, below are listed example possible output
 
 In order the code to work locally some aditional software should be installed/setup
 
+### Instal Java 8 ###
+
+* **Download** - https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html
+
 ### Instal and setup Maven ###
 
 Maven should be installed in order all dependencies(needed libraries and etc) to be downloaded.
@@ -49,4 +53,24 @@ Maven should be installed in order all dependencies(needed libraries and etc) to
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=Jtj-0yhox5s
 " target="_blank"><img src="http://img.youtube.com/vi/Jtj-0yhox5s/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+alt="" width="240" height="180" border="10" /></a>
+
+### Install and setup MongoDB ###
+
+* **Download** - https://www.mongodb.com/download-center?jmp=nav#atlas
+* **Installing** - 
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=1uFY60CESlM
+" target="_blank"><img src="http://img.youtube.com/vi/1uFY60CESlM/0.jpg" 
+alt="" width="240" height="180" border="10" /></a>
+
+### Install and setup XAMPP ###
+
+* **Download** - https://www.apachefriends.org/index.html
+* **Installing** - 
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=N6ENnaRotmo
+" target="_blank"><img src="http://img.youtube.com/vi/N6ENnaRotmo/0.jpg" 
+alt="" width="240" height="180" border="10" /></a>
+
+
