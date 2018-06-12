@@ -21,7 +21,18 @@ public class Student {
 	@Expose
 	private Integer grade;
 
-	final Logger logger = LoggerFactory.getLogger(Student.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(Student.class);
+
+	public Student() {
+	}
+
+	public Student(Integer id, String name, Integer age, Integer grade) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.grade = grade;
+	}
 
 	public Integer getId() {
 		return id;
@@ -56,6 +67,6 @@ public class Student {
 	}
 
 	public void printInfo() {
-		logger.info("Id: {}, Name: {}, age: {}, grade: {} \n", this.id, this.name, this.age, this.grade);
+		LOGGER.info("Id: {}, Name: {}, age: {}, grade: {} \n", this.id, this.name, this.age, this.grade);
 	}
 }

@@ -1,25 +1,32 @@
-package com.musala.simple.students.db;
+package com.musala.simple.students.db.impl;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import com.musala.simple.students.db.DataBase;
+import com.musala.simple.students.db.Student;
+import com.musala.simple.students.db.StudentGroup;
+import com.musala.simple.students.db.mappers.MongoObjectMapper;
 
 public class MongoDB implements DataBase {
 
-	private final MongoClient mongoClient;
-	private DB database;
-	private DBCollection collection;
-	private MongoObjectMapper mapper;
+	protected MongoClient mongoClient;
+	protected DB database;
+	protected DBCollection collection;
+	protected MongoObjectMapper mapper;
 
 	public MongoDB() {
+		CreateDB();
+	}
 
+	protected void CreateDB() {
 		mongoClient = new MongoClient();
 		database = mongoClient.getDB("studentsDB");
 		collection = database.getCollection("studentsCollection");
 		mapper = new MongoObjectMapper();
 	}
 
-	public DBCollection getCollection() {
+	private DBCollection getCollection() {
 		return collection;
 	}
 

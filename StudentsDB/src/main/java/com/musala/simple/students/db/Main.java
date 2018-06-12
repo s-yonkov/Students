@@ -11,15 +11,54 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.musala.simple.students.db.exceptions.SQLConnectionException;
+import com.musala.simple.students.db.exceptions.StudentDataParsingException;
+import com.musala.simple.students.db.impl.MongoDB;
+import com.musala.simple.students.db.impl.MySqlDB;
 
 public class Main {
 
-	public static void main(String[] args) throws StudentDataParsingException {
+	final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
+	private static Gson gson = new Gson();
 
-		final Logger logger = LoggerFactory.getLogger(Main.class);
-		Gson gson = new Gson();
-		// Will modify once we have more than one DB - it may change to new MySqlDB
-		DataBase db = new MySqlDB();
+	public static void main(String[] args) throws StudentDataParsingException, SQLConnectionException {
+
+		DataBase db;
+		// Using the third argument as a key how many and which DB to use - 3 options
+		// one for Mongo, one for MySQL and one for both.
+		if (args.length == 3 && args != null) {
+			String dbChoice = args[2].toLowerCase();
+
+			switch (dbChoice) {
+			case "mongo":
+				workWithOneDb((db = new MongoDB()), args);
+				break;
+			case "mysql":
+				workWithOneDb((db = new MySqlDB()), args);
+				break;
+			case "both":
+				workWithTwoDBs((db = new MySqlDB()), (db = new MongoDB()), args);
+				break;
+			default:
+				throw new IllegalArgumentException("Invalid argument passed");
+			}
+
+		} else if (args.length < 3 && args.length > 0) {
+			workWithOneDb(db = new MySqlDB(), args);
+		} else {
+			throw new IllegalArgumentException("Invalid number of arguments passed");
+		}
+
+	}
+
+	private static void workWithTwoDBs(DataBase mySQL, DataBase mongo, String[] args)
+			throws StudentDataParsingException, SQLConnectionException {
+		workWithOneDb(mySQL, args);
+		workWithOneDb(mongo, args);
+	}
+
+	private static void workWithOneDb(DataBase db, String[] args)
+			throws StudentDataParsingException, SQLConnectionException {
 
 		if (args.length != 0 && args != null) {
 			// If the passed path is incorrect and the db is not empty
@@ -37,13 +76,13 @@ public class Main {
 			if (args.length == 1) {
 				// If only one argument is passed printing the entire info
 				printAllElements(students);
-			} else if (args.length == 2 && isValidId(args[1])) {
-				// Checking if there are 2 arguments passed
+			} else if (args.length >= 2 && isValidId(args[1])) {
+
 				int id = Integer.parseInt(args[1]);
 				if (id <= students.getStudents().size()) {
-					students.getStudentById(id - 1).printInfo();
+					students.getStudentById(id).printInfo();
 				} else {
-					logger.info("Requested student does not exist in the data");
+					LOGGER.warn("Requested student does not exist in the data");
 					printAllElements(students);
 				}
 			}
@@ -56,7 +95,6 @@ public class Main {
 		} catch (IOException ioException) {
 			throw new StudentDataParsingException("Could not retrieve info from the file", ioException);
 		}
-
 	}
 
 	private static boolean fileExists(String string) {
@@ -72,17 +110,17 @@ public class Main {
 		printAllElements(studentGroup);
 	}
 
-	private static void createBackup(StudentGroup students, DataBase db) {
+	private static void createBackup(StudentGroup students, DataBase db) throws SQLConnectionException {
 		db.insertStudents(students);
 	}
 
-	public static void printAllElements(StudentGroup students) {
+	private static void printAllElements(StudentGroup students) {
 		if (students.getStudents() != null) {
 			students.getStudents().forEach(student -> student.printInfo());
 		}
 	}
 
-	public static boolean isValidId(String id) {
+	private static boolean isValidId(String id) {
 		try {
 			Integer.parseInt(id);
 			return true;

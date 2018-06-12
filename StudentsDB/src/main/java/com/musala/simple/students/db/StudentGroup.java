@@ -24,7 +24,7 @@ public class StudentGroup {
 		if (id <= this.students.size()) {
 			return this.students.get(id - 1);
 		} else {
-			throw new IllegalArgumentException("There is no such ID.");
+			throw new IllegalArgumentException("Requested student does not exist in the data.");
 		}
 	}
 

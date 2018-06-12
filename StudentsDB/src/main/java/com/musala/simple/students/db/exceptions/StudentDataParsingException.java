@@ -1,4 +1,4 @@
-package com.musala.simple.students.db;
+package com.musala.simple.students.db.exceptions;
 
 public class StudentDataParsingException extends Exception {
 
