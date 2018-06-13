@@ -12,26 +12,26 @@ import com.musala.simple.students.db.StudentGroup;
 
 public class MongoObjectMapper {
 
-	public DBObject toDBObject(Student student) {
+    public DBObject toDBObject(Student student) {
 
-		return new BasicDBObject().append("id", student.getId()).append("name", student.getName())
-				.append("age", student.getAge()).append("grade", student.getGrade());
-	}
+        return new BasicDBObject().append("id", student.getId()).append("name", student.getName())
+                .append("age", student.getAge()).append("grade", student.getGrade());
+    }
 
-	public StudentGroup toStudentGroup(DBCollection collection) {
-		StudentGroup students = new StudentGroup();
-		Gson gson = new Gson();
-		ArrayList<Student> tempStudents = new ArrayList<>();
+    public StudentGroup toStudentGroup(DBCollection collection) {
+        StudentGroup students = new StudentGroup();
+        Gson gson = new Gson();
+        ArrayList<Student> tempStudents = new ArrayList<>();
 
-		DBCursor cursor = collection.find();
-		while (cursor.hasNext()) {
-			DBObject obj = cursor.next();
-			Student student = gson.fromJson(obj.toString(), Student.class);
-			tempStudents.add(student);
-		}
-		students.setStudents(tempStudents);
+        DBCursor cursor = collection.find();
+        while (cursor.hasNext()) {
+            DBObject obj = cursor.next();
+            Student student = gson.fromJson(obj.toString(), Student.class);
+            tempStudents.add(student);
+        }
+        students.setStudents(tempStudents);
 
-		return students;
-	}
+        return students;
+    }
 
 }
