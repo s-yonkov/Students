@@ -1,27 +1,27 @@
 package com.musala.simple.students.db;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javax.persistence.Entity;
-
 
 @Entity
 public class Student {
-    
-    final static Logger slf4jLogger = LoggerFactory.getLogger(Student.class);
 
+    final static Logger LOGGER = LoggerFactory.getLogger(Student.class);
+
+    @Id
     private int id;
     private String name;
     private int age;
-    private int grade;
-    
-    
+    private double grade;
 
-    protected Student() {
-
+    public Student() {
     }
 
-    public Student(int id, String name, int age, int grade) {
+    public Student(int id, String name, int age, double grade) {
+        this();
         this.id = id;
         this.name = name;
         this.age = age;
@@ -52,7 +52,7 @@ public class Student {
         this.age = age;
     }
 
-    public int getGrade() {
+    public double getGrade() {
         return grade;
     }
 
@@ -60,8 +60,10 @@ public class Student {
         this.grade = grade;
     }
 
-    public void printInfo() {
-        slf4jLogger.info("Id: {}, Name: {}, age: {}, grade: {} \n", this.id, this.name, this.age, this.grade);
+    @Override
+    public String toString() {
+        return String.format("Id: %d, Name: %s, age: %d, grade: %f ", this.id, this.name, this.age, this.grade);
+
     }
 
 }

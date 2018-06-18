@@ -1,77 +1,94 @@
 package com.musala.simple.students.db;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import com.google.gson.Gson;
-
+@Component
 public class StudentModel {
 
     final static Logger LOGGER = LoggerFactory.getLogger(StudentModel.class);
-    private static Gson gson = new Gson();
 
+    @Autowired
     protected MongoStudentDAO mongo;
+    @Autowired
     protected MySQLStudentDAO mysql;
 
-    public void writeInDB(String path, StudentDAO db) throws FileNotFoundException {
-        if (fileExists(path)) {
-            BufferedReader br = new BufferedReader(new FileReader(new File(path)));
-            StudentGroup students = gson.fromJson(br, StudentGroup.class);
+    public void addStudent(DataBaseType dbType, Student student) {
 
-            createBackup(students, db);
+        switch (dbType) {
+            case MONGO:
+                mongo.insertStudent(student);
+                break;
+            case MYSQL:
+                mysql.insertStudent(student);
+                break;
+            case ALL:
+                mongo.insertStudent(student);
+                mysql.insertStudent(student);
+                break;
+            default:
+                LOGGER.debug("No such Database");
+                break;
         }
+
     }
 
-    public void printStudentByID(int id, StudentDAO db) {
-        if (db.getStudentById(id).isPresent()) {
-            db.getStudentById(id).get().printInfo();
-        } else {
-            printEntireDB(db);
+    public Student getStudentByID(DataBaseType dbType, int id) {
+        switch (dbType) {
+            case MONGO:
+                if (mongo.getStudentById(id).isPresent()) {
+                    return mongo.getStudentById(id).get();
+                } else {
+                    return null;
+                }
+            case MYSQL:
+                if (mysql.getStudentById(id).isPresent()) {
+                    return mysql.getStudentById(id).get();
+                } else {
+                    return null;
+                }
+            case ALL:
+                if (mongo.getStudentById(id).isPresent()) {
+                    return mongo.getStudentById(id).get();
+                } else if (mysql.getStudentById(id).isPresent()) {
+                    return mysql.getStudentById(id).get();
+                } else {
+                    return null;
+                }
+            default:
+                LOGGER.debug("No such Database");
+                return null;
         }
+
     }
 
-    private void printEntireDB(StudentDAO db) {
-        if (!db.isEmpty()) {
-            printAllElements(db.getStudents());
+    public StudentGroup getAllStudents(DataBaseType dbType) {
+        StudentGroup students;
+        switch (dbType) {
+            case MONGO:
+                if (!mongo.isEmpty()) {
+                    return mongo.getStudents();
+                } else {
+                    return null;
+                }
+            case MYSQL:
+                if (!mysql.isEmpty()) {
+                    return mysql.getStudents();
+                } else {
+                    return null;
+                }
+            case ALL:
+                if (!mongo.isEmpty() && !mysql.isEmpty()) {
+                    students = mongo.getStudents();
+                    students.addStudents(mysql.getStudents().getStudents());
+                    return students;
+                }
+            default:
+                LOGGER.debug("No such Database");
+                return null;
         }
-    }
-
-    protected static boolean fileExists(String string) {
-        File file = new File(string);
-        if (file.exists() && !(file.isDirectory())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    protected static void printStudents(StudentGroup studentGroup) {
-        printAllElements(studentGroup);
-    }
-
-    protected static void createBackup(StudentGroup students, StudentDAO db) {
-        db.insertStudents(students);
-    }
-
-    protected static void printAllElements(StudentGroup students) {
-        if (students.getStudents() != null) {
-            students.getStudents().forEach(student -> student.printInfo());
-        }
-    }
-    
-    public void writeInBothDBs(String path) throws FileNotFoundException {
-        writeInDB(path, mongo);
-        writeInDB(path, mysql);
-    }
-    
-    public void printStudentByIDFromBothDBs(int id) {
-        printStudentByID(id, mongo);
-        printStudentByID(id, mysql);
     }
 
 }

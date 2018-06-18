@@ -9,34 +9,34 @@ import org.springframework.stereotype.Component;
 public class MongoStudentDAO implements StudentDAO {
 
     @Autowired
-    public MongoStudentRepository repository;
+    private MongoStudentRepository mongoRepo;
 
     @Override
     public void insertStudent(Student student) {
-        repository.insert(student);
+        mongoRepo.insert(student);
     }
 
     @Override
     public Optional<Student> getStudentById(long id) {
 
-        return repository.findById(id);
+        return mongoRepo.findById(id);
     }
 
     @Override
     public void insertStudents(StudentGroup students) {
-        repository.insert(students.getStudents());
+        mongoRepo.insert(students.getStudents());
     }
 
     @Override
     public StudentGroup getStudents() {
         StudentGroup students = new StudentGroup();
-        students.setStudents(repository.findAll());
+        students.setStudents(mongoRepo.findAll());
         return students;
     }
 
     @Override
     public boolean isEmpty() {
-        if (repository.count() == 0) {
+        if (mongoRepo.count() == 0) {
             return true;
         } else {
             return false;

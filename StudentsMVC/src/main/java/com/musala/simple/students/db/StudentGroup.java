@@ -2,30 +2,38 @@ package com.musala.simple.students.db;
 
 import java.util.List;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class StudentGroup {
 
-	@SerializedName("students")
-	@Expose
-	private List<Student> students = null;
+    @Autowired
+    private List<Student> students;
 
-	public List<Student> getStudents() {
-		return students;
-	}
+    public List<Student> getStudents() {
+        return students;
+    }
 
-	public void setStudents(List<Student> students) {
-		this.students = students;
-	}
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 
-	public Student getStudentById(int id) {
+    public void setStudents(Student[] students) {
+        for (Student student : students) {
+            this.students.add(student);
+        }
+    }
 
-		if (id <= this.students.size()) {
-			return this.students.get(id - 1);
-		} else {
-			throw new IllegalArgumentException("There is no such ID.");
-		}
-	}
+    public void addStudents(List<Student> students) {
+        this.students.addAll(students);
+    }
+
+    public Student getStudentById(int id) {
+
+        if (id <= this.students.size()) {
+            return this.students.get(id - 1);
+        } else {
+            throw new IllegalArgumentException("There is no such ID.");
+        }
+    }
 
 }
