@@ -3,9 +3,7 @@ bin/
 */bin/*
 target/classes
 */target/classes/*
-<<<<<<< feature/task4-mysql-integration
-*/pom.properties
-=======
 pom.properties
->>>>>>> local
+*/pom.properties
 /target/
+*/target/
