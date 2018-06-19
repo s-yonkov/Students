@@ -8,54 +8,64 @@ import com.google.gson.annotations.SerializedName;
 
 public class Student {
 
-	@SerializedName("id")
-	@Expose
-	private Integer id;
-	@SerializedName("name")
-	@Expose
-	private String name;
-	@SerializedName("age")
-	@Expose
-	private Integer age;
-	@SerializedName("grade")
-	@Expose
-	private Integer grade;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("age")
+    @Expose
+    private Integer age;
+    @SerializedName("grade")
+    @Expose
+    private Integer grade;
 
-	final Logger slf4jLogger = LoggerFactory.getLogger(Student.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Student.class);
 
-	public Integer getId() {
-		return id;
-	}
+    public Student() {
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Student(Integer id, String name, Integer age, Integer grade) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.grade = grade;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Integer getAge() {
-		return age;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Integer getGrade() {
-		return grade;
-	}
+    public Integer getAge() {
+        return age;
+    }
 
-	public void setGrade(Integer grade) {
-		this.grade = grade;
-	}
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
-	public void printInfo() {
-		slf4jLogger.info("Id: {}, Name: {}, age: {}, grade: {} \n", this.id, this.name, this.age, this.grade);
-	}
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
+    public void printInfo() {
+        LOGGER.info("Id: {}, Name: {}, age: {}, grade: {} \n", this.id, this.name, this.age, this.grade);
+    }
 }
