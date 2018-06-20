@@ -17,20 +17,20 @@ public class StudentControler {
     
 
     @PostMapping
-    public boolean insertStudent(Student student) {
+    public boolean insertStudent(StudentDTO student) {
         studentModel.addStudent(DataBaseType.MONGO, student);
         return true;
     }
 
     @GetMapping("{id}")
-    public Student getStudentById(Input input) {
+    public StudentDTO getStudentById(Input input) {
         DataBaseType dbType;
         dbType = DataBaseType.MYSQL;
         return studentModel.getStudentByID(dbType, 3);
     }
 
     @GetMapping()
-    public List<Student> getStudents(Input input) {
+    public List<StudentDTO> getStudents(Input input) {
         DataBaseType dbType;
         dbType = DataBaseType.MYSQL;
         return (studentModel.getAllStudents(dbType).getStudents());

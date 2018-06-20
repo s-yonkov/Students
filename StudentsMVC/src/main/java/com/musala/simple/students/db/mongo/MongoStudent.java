@@ -1,27 +1,24 @@
-package com.musala.simple.students.db;
+package com.musala.simple.students.db.mongo;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-public class Student {
-
-    final static Logger LOGGER = LoggerFactory.getLogger(Student.class);
-
+@Document
+public class MongoStudent {
+    
     @Id
     private int id;
     private String name;
     private int age;
     private double grade;
 
-    public Student() {
+    public MongoStudent() {
+
     }
 
-    public Student(int id, String name, int age, double grade) {
-        this();
+    public MongoStudent(int id, String name, int age, double grade) {
+        super();
         this.id = id;
         this.name = name;
         this.age = age;
@@ -56,14 +53,7 @@ public class Student {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(double grade) {
         this.grade = grade;
     }
-
-    @Override
-    public String toString() {
-        return String.format("Id: %d, Name: %s, age: %d, grade: %f ", this.id, this.name, this.age, this.grade);
-
-    }
-
 }

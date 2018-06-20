@@ -1,9 +1,14 @@
 package com.musala.simple.students.db;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.musala.simple.students.db.mongo.MongoStudentDAO;
+import com.musala.simple.students.db.mysql.MySQLStudentDAO;
 
 @Component
 public class StudentModel {
@@ -15,80 +20,51 @@ public class StudentModel {
     @Autowired
     protected MySQLStudentDAO mysql;
 
-    public void addStudent(DataBaseType dbType, Student student) {
+    private List<StudentDAO> getDBs(DataBaseType dbType) {
+
+        List<StudentDAO> dbs = null;
 
         switch (dbType) {
             case MONGO:
-                mongo.insertStudent(student);
-                break;
+                dbs.add(mongo);
+                return dbs;
             case MYSQL:
-                mysql.insertStudent(student);
-                break;
+                dbs.add(mysql);
+                return dbs;
             case ALL:
-                mongo.insertStudent(student);
-                mysql.insertStudent(student);
-                break;
+                dbs.add(mongo);
+                dbs.add(mysql);
+                return dbs;
             default:
+                // To add logic if invalid argument is passed;
                 LOGGER.debug("No such Database");
-                break;
+                return dbs;
         }
 
     }
 
-    public Student getStudentByID(DataBaseType dbType, int id) {
-        switch (dbType) {
-            case MONGO:
-                if (mongo.getStudentById(id).isPresent()) {
-                    return mongo.getStudentById(id).get();
-                } else {
-                    return null;
-                }
-            case MYSQL:
-                if (mysql.getStudentById(id).isPresent()) {
-                    return mysql.getStudentById(id).get();
-                } else {
-                    return null;
-                }
-            case ALL:
-                if (mongo.getStudentById(id).isPresent()) {
-                    return mongo.getStudentById(id).get();
-                } else if (mysql.getStudentById(id).isPresent()) {
-                    return mysql.getStudentById(id).get();
-                } else {
-                    return null;
-                }
-            default:
-                LOGGER.debug("No such Database");
-                return null;
-        }
+    public void addStudent(DataBaseType dbType, StudentDTO studentDTO) {
+        List<StudentDAO> dbs = getDBs(dbType);
+        dbs.forEach(db -> db.insertStudent(studentDTO));
+    }
 
+    public StudentDTO getStudentByID(DataBaseType dbType, long id) {
+        List<StudentDAO> dbs = getDBs(dbType);
+
+        for (StudentDAO db : dbs) {
+            if (db.getStudentById(id) != null) {
+                return db.getStudentById(id);
+            }
+        }
+        return null;
     }
 
     public StudentGroup getAllStudents(DataBaseType dbType) {
-        StudentGroup students;
-        switch (dbType) {
-            case MONGO:
-                if (!mongo.isEmpty()) {
-                    return mongo.getStudents();
-                } else {
-                    return null;
-                }
-            case MYSQL:
-                if (!mysql.isEmpty()) {
-                    return mysql.getStudents();
-                } else {
-                    return null;
-                }
-            case ALL:
-                if (!mongo.isEmpty() && !mysql.isEmpty()) {
-                    students = mongo.getStudents();
-                    students.addStudents(mysql.getStudents().getStudents());
-                    return students;
-                }
-            default:
-                LOGGER.debug("No such Database");
-                return null;
-        }
+        List<StudentDAO> dbs = getDBs(dbType);
+        StudentGroup studentGroup = new StudentGroup();
+        
+        dbs.forEach(db -> studentGroup.addStudents(db.getStudents().getStudents()));
+        
+        return studentGroup;
     }
-
 }
