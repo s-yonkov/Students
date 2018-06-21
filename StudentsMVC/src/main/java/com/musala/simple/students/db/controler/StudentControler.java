@@ -1,4 +1,4 @@
-package com.musala.simple.students.db;
+package com.musala.simple.students.db.controler;
 
 import java.util.List;
 
@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.musala.simple.students.db.DataBaseType;
+import com.musala.simple.students.db.Input;
+import com.musala.simple.students.db.dto.StudentDTO;
+import com.musala.simple.students.db.model.StudentModel;
+
 @RestController
 @RequestMapping("/students")
 public class StudentControler {
@@ -19,14 +24,14 @@ public class StudentControler {
 
     @PostMapping
     public boolean insertStudent(@RequestBody StudentDTO student) {
-        studentModel.addStudent(DataBaseType.MONGO, student);
+        studentModel.addStudent(DataBaseType.ALL, student);
         return true;
     }
 
     @GetMapping("{id}")
     public StudentDTO getStudentById(@PathVariable("id") long id) {
         DataBaseType dbType;
-        dbType = DataBaseType.MONGO;
+        dbType = DataBaseType.ALL;
         return studentModel.getStudentByID(dbType, id);
     }
 

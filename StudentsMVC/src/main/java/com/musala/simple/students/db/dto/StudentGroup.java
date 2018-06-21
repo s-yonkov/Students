@@ -1,4 +1,4 @@
-package com.musala.simple.students.db;
+package com.musala.simple.students.db.dto;
 
 import java.util.ArrayList;
 import java.util.List;

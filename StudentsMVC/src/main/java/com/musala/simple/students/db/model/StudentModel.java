@@ -1,4 +1,4 @@
-package com.musala.simple.students.db;
+package com.musala.simple.students.db.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.musala.simple.students.db.DataBaseType;
+import com.musala.simple.students.db.dao.StudentDAO;
+import com.musala.simple.students.db.dto.StudentDTO;
+import com.musala.simple.students.db.dto.StudentGroup;
 import com.musala.simple.students.db.mongo.MongoStudentDAO;
 import com.musala.simple.students.db.mysql.MySQLStudentDAO;
 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+</style>
+</head>
+<body>
+
+<form>
+  <div class="addStudent">
+    <h1>Student</h1>
+    <p>Please fill in this form to create a new Student.</p>
+    <hr>
+
+    <label for="id"><b>ID</b></label>
+    <input type="number" placeholder="Enter ID" name="id" required>
+
+    <label for="Name"><b>Name</b></label>
+    <input type="text" placeholder="Enter Name" name="name" required>
+
+    <label for="age"><b>Age</b></label>
+    <input type="number" placeholder="Enter Age" name="age" required>
+	
+	<label for="grade"><b>Grade</b></label>
+    <input type="number" placeholder="Enter Grade" name="grade" required>
+	
+	<p>Database</p>
+	<select name="Database">
+    <option value="MONGO">Mongo</option>
+    <option value="MYSQL">MySQL</option>
+    <option value="ALL">Both</option>
+	</select>
+	<button type="submit" class="addStudent">Add Student</button>
+    <hr>
+</form>	
+
+
+
+  </div>
+  <hr>
+  <br/>
+  
+<form>
+  <div class="showStudentById">
+	
+	<p>Please fill the ID, select the DB and then click on the button to show the student info</p>
+    <hr>
+    <label for="id"><b>ID</b></label>
+    <input type="number" placeholder="Enter ID" name="id" required>
+	
+  	<p>Database</p>
+	<select name="Database">
+    <option value="MONGO">Mongo</option>
+    <option value="MYSQL">MySQL</option>
+    <option value="ALL">Both</option>
+	</select>
+	
+	<button type="submit" class="showStudent">Show Student</button>
+	<hr>
+  </div>
+</form>
+
+<form>
+  <div class="showAllStudents">
+  	
+    <p>Please choose the DB and then click on the button to see all students</p>
+    <hr>
+	<select name="Database">
+    <option value="MONGO">Mongo</option>
+    <option value="MYSQL">MySQL</option>
+    <option value="ALL">Both</option>
+	</select>
+	
+	<button type="submit" class="showAll">Show All Students</button>
+	<hr>
+  </div>
+</form>
+
+
+<hr>
+<textarea rows="20" cols="100">
+
+</textarea>
+
+</body>
+</html>

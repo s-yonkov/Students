@@ -1,6 +1,9 @@
-package com.musala.simple.students.db;
+package com.musala.simple.students.db.dao;
 
 import org.springframework.stereotype.Component;
+
+import com.musala.simple.students.db.dto.StudentDTO;
+import com.musala.simple.students.db.dto.StudentGroup;
 
 @Component
 public interface StudentDAO {

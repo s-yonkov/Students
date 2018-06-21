@@ -1,5 +1,7 @@
 package com.musala.simple.students.db;
 
+import com.musala.simple.students.db.dto.StudentGroup;
+
 public class Input {
 
     private StudentGroup studentGroup;

@@ -3,10 +3,10 @@ package com.musala.simple.students.db.mysql;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.musala.simple.students.db.StudentDAO;
-import com.musala.simple.students.db.StudentDTO;
-import com.musala.simple.students.db.StudentGroup;
-import com.musala.simple.students.db.StudentMapper;
+import com.musala.simple.students.db.dao.StudentDAO;
+import com.musala.simple.students.db.dto.StudentDTO;
+import com.musala.simple.students.db.dto.StudentGroup;
+import com.musala.simple.students.db.mapper.StudentMapper;
 
 @Component
 public class MySQLStudentDAO implements StudentDAO {
