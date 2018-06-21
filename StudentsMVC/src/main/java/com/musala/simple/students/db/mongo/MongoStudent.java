@@ -6,9 +6,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class MongoStudent {
-    
+
     @Id
-    private int id;
+    private long id;
     private String name;
     private int age;
     private double grade;
@@ -17,7 +17,7 @@ public class MongoStudent {
 
     }
 
-    public MongoStudent(int id, String name, int age, double grade) {
+    public MongoStudent(long id, String name, int age, double grade) {
         super();
         this.id = id;
         this.name = name;
@@ -25,7 +25,7 @@ public class MongoStudent {
         this.grade = grade;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

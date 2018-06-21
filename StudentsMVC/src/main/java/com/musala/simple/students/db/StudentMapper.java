@@ -5,11 +5,11 @@ import com.musala.simple.students.db.mysql.MySQLStudent;
 
 public class StudentMapper {
 
-    public static StudentDTO mapToStudentDTO(MongoStudent mongoStudent) {
-
-        return new StudentDTO(mongoStudent.getId(), mongoStudent.getName(), mongoStudent.getAge(),
-                mongoStudent.getGrade());
-    }
+     public static StudentDTO mapToStudentDTO(MongoStudent mongoStudent) {
+    
+     return new StudentDTO(mongoStudent.getId(), mongoStudent.getName(), mongoStudent.getAge(),
+     mongoStudent.getGrade());
+     }
 
     public static StudentDTO mapToStudentDTO(MySQLStudent mySQLStudent) {
 
@@ -22,9 +22,9 @@ public class StudentMapper {
         return new MySQLStudent(student.getId(), student.getName(), student.getAge(), student.getGrade());
     }
 
-    public static MongoStudent mapToMongoStudent(StudentDTO student) {
-
-        return new MongoStudent(student.getId(), student.getName(), student.getAge(), student.getGrade());
-    }
+     public static MongoStudent mapToMongoStudent(StudentDTO student) {
+    
+     return new MongoStudent(student.getId(), student.getName(), student.getAge(), student.getGrade());
+     }
 
 }

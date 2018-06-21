@@ -1,7 +1,6 @@
 package com.musala.simple.students.db.mongo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.musala.simple.students.db.StudentDAO;
@@ -13,7 +12,6 @@ import com.musala.simple.students.db.StudentMapper;
 public class MongoStudentDAO implements StudentDAO {
 
     @Autowired
-    @Qualifier("MongoRepo")
     private MongoStudentRepository mongoRepo;
 
     @Override
@@ -40,7 +38,7 @@ public class MongoStudentDAO implements StudentDAO {
     public StudentGroup getStudents() {
         StudentGroup students = new StudentGroup();
         mongoRepo.findAll().forEach(mongoStudent -> students.addStudent(StudentMapper.mapToStudentDTO(mongoStudent)));
-        
+
         return students;
     }
 

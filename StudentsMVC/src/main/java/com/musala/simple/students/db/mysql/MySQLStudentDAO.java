@@ -1,5 +1,6 @@
 package com.musala.simple.students.db.mysql;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.musala.simple.students.db.StudentDAO;
@@ -10,6 +11,7 @@ import com.musala.simple.students.db.StudentMapper;
 @Component
 public class MySQLStudentDAO implements StudentDAO {
 
+    @Autowired
     private MySQLStudentRepository mySQLRepo;
 
     @Override

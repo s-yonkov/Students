@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentDTO {
 
-    private int id;
+    private long id;
     private String name;
     private int age;
     private double grade;
@@ -13,7 +13,7 @@ public class StudentDTO {
     public StudentDTO() {
     }
 
-    public StudentDTO(int id, String name, int age, double grade) {
+    public StudentDTO(long id, String name, int age, double grade) {
         this();
         this.id = id;
         this.name = name;
@@ -21,7 +21,7 @@ public class StudentDTO {
         this.grade = grade;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

@@ -1,17 +1,21 @@
 package com.musala.simple.students.db.mysql;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class MySQLStudent {
 
-    private int id;
+    @Id
+    private long id;
     private String name;
     private int age;
     private double grade;
 
     public MySQLStudent() {
-
     }
 
-    public MySQLStudent(int id, String name, int age, double grade) {
+    public MySQLStudent(long id, String name, int age, double grade) {
         super();
         this.id = id;
         this.name = name;
@@ -19,7 +23,7 @@ public class MySQLStudent {
         this.grade = grade;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
