@@ -1,8 +1,5 @@
 package com.musala.simple.students.db;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Input {
 
     private StudentGroup studentGroup;

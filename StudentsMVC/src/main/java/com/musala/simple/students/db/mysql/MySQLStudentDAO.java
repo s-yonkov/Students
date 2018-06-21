@@ -1,6 +1,5 @@
 package com.musala.simple.students.db.mysql;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.musala.simple.students.db.StudentDAO;
@@ -11,7 +10,6 @@ import com.musala.simple.students.db.StudentMapper;
 @Component
 public class MySQLStudentDAO implements StudentDAO {
 
-    @Autowired
     private MySQLStudentRepository mySQLRepo;
 
     @Override
@@ -37,7 +35,6 @@ public class MySQLStudentDAO implements StudentDAO {
     public StudentGroup getStudents() {
         StudentGroup students = new StudentGroup();
         mySQLRepo.findAll().forEach(mySQLStudent -> students.addStudent(StudentMapper.mapToStudentDTO(mySQLStudent)));
-        
         return students;
     }
 

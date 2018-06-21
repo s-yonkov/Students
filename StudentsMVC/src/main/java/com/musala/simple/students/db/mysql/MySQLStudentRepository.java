@@ -1,9 +1,7 @@
 package com.musala.simple.students.db.mysql;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
-@Repository
-public interface MySQLStudentRepository extends JpaRepository<MySQLStudent, Long> {
+public interface MySQLStudentRepository extends CrudRepository<MySQLStudent, Long> {
 
 }

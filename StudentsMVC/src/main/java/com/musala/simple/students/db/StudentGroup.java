@@ -1,5 +1,6 @@
 package com.musala.simple.students.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentGroup {
 
-    @Autowired
-    private List<StudentDTO> students;
+    private List<StudentDTO> students = new ArrayList<>();
 
     public List<StudentDTO> getStudents() {
         return students;

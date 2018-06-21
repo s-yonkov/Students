@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,35 +20,23 @@ public class StudentControler {
     
 
     @PostMapping
-    public boolean insertStudent(StudentDTO student) {
+    public boolean insertStudent(@RequestBody StudentDTO student) {
         studentModel.addStudent(DataBaseType.MONGO, student);
         return true;
     }
 
     @GetMapping("{id}")
-    public StudentDTO getStudentById(Input input) {
+    public StudentDTO getStudentById(@PathVariable("id") long id) {
         DataBaseType dbType;
-        dbType = DataBaseType.MYSQL;
-        return studentModel.getStudentByID(dbType, 3);
+        dbType = DataBaseType.MONGO;
+        return studentModel.getStudentByID(dbType, id);
     }
 
     @GetMapping()
     public List<StudentDTO> getStudents(Input input) {
         DataBaseType dbType;
-        dbType = DataBaseType.MYSQL;
+        dbType = DataBaseType.MONGO;
         return (studentModel.getAllStudents(dbType).getStudents());
     }
-
-    // @PostMapping
-    // public boolean insertStudent(Input input) {
-    // studentModel.addStudents(input.getDbType(), input.getStudentGroup());
-    // return true;
-    // }
-    //
-    // @GetMapping
-    // public StudentGroup getStudents(Input input) {
-    // return studentModel.getAllStudents(input.getDbType());
-    // }
-    //
 
 }

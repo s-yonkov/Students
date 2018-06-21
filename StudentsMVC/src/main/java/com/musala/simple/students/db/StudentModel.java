@@ -1,11 +1,14 @@
 package com.musala.simple.students.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.musala.simple.students.db.mongo.MongoStudentDAO;
 import com.musala.simple.students.db.mysql.MySQLStudentDAO;
@@ -17,12 +20,12 @@ public class StudentModel {
 
     @Autowired
     protected MongoStudentDAO mongo;
-    @Autowired
+    
     protected MySQLStudentDAO mysql;
 
     private List<StudentDAO> getDBs(DataBaseType dbType) {
 
-        List<StudentDAO> dbs = null;
+        List<StudentDAO> dbs = new ArrayList<StudentDAO>();
 
         switch (dbType) {
             case MONGO:
