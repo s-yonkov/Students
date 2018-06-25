@@ -1,62 +1,80 @@
 <!DOCTYPE HTML>
- 
+
 <html>
 <head>
-	  <title>Students</title>
-	  <meta charset="utf-8" />
-	  <meta name="viewport" content="width=device-width, initial-scale=1" />
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	  <script src="/js/postrequest.js"></script>
-      <script src="/js/getrequest.js"></script>
+<title>Students</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script src="/js/postrequest.js"></script> -->
+<script src="/js/getrequest.js"></script>
+<script src="/js/getbyid.js"></script>
 </head>
 <body>
- 
-<div class="container">
- 
-	<h3 style="color:blue">Students</h3>
-	
-	<div class="row col-md-6">
-			<div class="form-group">
-			<div class="form-group">
-				<label for="id">ID:</label>
-				<input type="number" class="form-control" id="id" placeholder="Enter ID"/>
+
+	<div class="container">
+
+		<h3 style="color: blue">Students</h3>
+
+		<select id="dbType">
+			<option>MONGO</option>
+			<option>MYSQL</option>
+			<option>ALL</option>
+		</select>
+		
+		<div class="row col-md-6">
+			<form id="studentForm">
+				<div class="form-group">
+					<label for="id">ID:</label> <input type="number"
+						class="form-control" id="id" placeholder="Enter ID" />
+				</div>
+				<div class="form-group">
+					<label for="name">Name:</label> <input type="text"
+						class="form-control" id="name" placeholder="Enter Name" />
+				</div>
+				<div class="form-group">
+					<label for="age">Age:</label> <input type="number"
+						class="form-control" id="age" placeholder="Enter Age" />
+				</div>
+				<div class="form-group">
+					<label for="grade">Grade:</label> <input type="number"
+						class="form-control" id="grade" placeholder="Enter Grade" />
+				</div>
+
+				<button style="margin-bottom: 10px" type="submit"
+					class="btn btn-default">Add Student</button>
+
+			</form>
+
+
+			<div class="searc-id">
+				<label for="searchId">ID:</label> <input type="number"
+					class="searc-id" id="searchId" placeholder="Enter ID" />
 			</div>
-				<label for="name">Name:</label>
-				<input type="text" class="form-control" id="name" placeholder="Enter Name"/>
+
+			<button id="getStudentById" type="button" class="btn btn-primary"
+				style="margin: 10px 0px 10px 0px;">Get Student by ID</button>
+
+
+			<!-- Get All students from back-end -->
+			<button id="getAllStudentsBtnId" type="button"
+				class="btn btn-primary" style="margin: 10px 0px 10px 0px;">Get
+				All Students</button>
+			<div id="resultGetAllStudentDiv">
+				<ul class="list-group">
+				</ul>
 			</div>
-			<button style="margin-bottom:10px" type="submit" class="btn btn-default">Add Student</button>
-		</form>
-		
-		<!-- Table of Adding student -->
-		<table id="studentTable" class="table table-bordered table-hover">
-			<thead>
-				<tr>
-					<th>No</th>
-					<th>Name</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-		
-		<!-- DIV Submit student  -->
-		<!-- SUBMIT student Button to Server -->
-		<button id="postStudentsBtn" style="margin-bottom:10px" type="submit" class="btn btn-default">Post Students</button>
-		
-		<!-- Message result from server -->
-		<div id="postResultDiv" style="margin:10px 0px 10px 0px;">
+
+			<div id="resultDiv" style="margin: 10px 0px 10px 0px;">
+				<ul class="list-result">
+				</ul>
+			</div>
 		</div>
-		
-		
-		<!-- Get All students from back-end -->		
-		<button id="getAllStudentsBtnId" type="button" class="btn btn-primary" style="margin:10px 0px 10px 0px;">Get All Students</button>
-		<div id="resultGetAllStudentDiv">
-	        <ul class="list-group">
-	    	</ul>
-    	</div>
 	</div>
-</div>
 </body>
 </html>

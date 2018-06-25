@@ -1,19 +1,19 @@
 package com.musala.simple.students.db;
 
-import com.musala.simple.students.db.dto.StudentGroup;
+import com.musala.simple.students.db.dto.StudentDTO;
 
 public class Input {
 
-    private StudentGroup studentGroup;
+    private StudentDTO student;
     private DataBaseType database;
     private int id;
 
-    public StudentGroup getStudentGroup() {
-        return studentGroup;
+    public StudentDTO getStudent() {
+        return student;
     }
 
-    public void setStudentGroup(StudentGroup studentGroup) {
-        this.studentGroup = studentGroup;
+    public void setStudent(StudentDTO student) {
+        this.student = student;
     }
 
     public DataBaseType getDbType() {
