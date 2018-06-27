@@ -1,6 +1,5 @@
 package com.musala.simple.students.db.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.musala.simple.students.db.DataBaseType;
 import com.musala.simple.students.db.dao.StudentDAO;
+import com.musala.simple.students.db.dbtypes.DataBaseType;
 import com.musala.simple.students.db.dto.StudentDTO;
 import com.musala.simple.students.db.dto.StudentGroup;
 import com.musala.simple.students.db.mongo.MongoStudentDAO;
@@ -22,55 +21,44 @@ public class StudentModel {
 
     @Autowired
     protected MySQLStudentDAO mysql;
-    
+
     @Autowired
     protected MongoStudentDAO mongo;
 
-    private List<StudentDAO> getDBs(DataBaseType dbType) {
-
-        List<StudentDAO> dbs = new ArrayList<StudentDAO>();
-
-        switch (dbType) {
-            case MONGO:
-                dbs.add(mongo);
-                return dbs;
-            case MYSQL:
-                dbs.add(mysql);
-                return dbs;
-            case ALL:
-                dbs.add(mysql);
-                dbs.add(mongo);
-                return dbs;
-            default:
-                // To add logic if invalid argument is passed;
-                LOGGER.debug("No such Database");
-                return dbs;
-        }
-
+    public void addStudent(List<DataBaseType> dbTypes, StudentDTO studentDTO) {
+        dbTypes.forEach(db -> addStudent(db, studentDTO));
     }
 
-    public void addStudent(DataBaseType dbType, StudentDTO studentDTO) {
-        List<StudentDAO> dbs = getDBs(dbType);
-        dbs.forEach(db -> db.insertStudent(studentDTO));
+    private void addStudent(DataBaseType dbType, StudentDTO studentDTO) {
+        mapToDb(dbType).insertStudent(studentDTO);
     }
 
-    public StudentDTO getStudentByID(DataBaseType dbType, long id) {
-        List<StudentDAO> dbs = getDBs(dbType);
+    public StudentDTO getStudentByID(List<DataBaseType> dbTypes, long id) {
 
-        for (StudentDAO db : dbs) {
-            if (db.getStudentById(id) != null) {
-                return db.getStudentById(id);
+        for (DataBaseType db : dbTypes) {
+            if (mapToDb(db).getStudentById(id) != null) {
+                return mapToDb(db).getStudentById(id);
             }
         }
         return null;
     }
 
-    public StudentGroup getAllStudents(DataBaseType dbType) {
-        List<StudentDAO> dbs = getDBs(dbType);
+    public StudentGroup getAllStudents(List<DataBaseType> dbTypes) {
         StudentGroup studentGroup = new StudentGroup();
 
-        dbs.forEach(db -> studentGroup.addStudents(db.getStudents().getStudents()));
+        dbTypes.forEach(db -> studentGroup.addStudents(mapToDb(db).getStudents().getStudents()));
 
         return studentGroup;
+    }
+
+    private StudentDAO mapToDb(DataBaseType db) {
+        switch (db) {
+            case MONGO:
+                return mongo;
+            case MYSQL:
+                return mysql;
+            default:
+                return null;
+        }
     }
 }

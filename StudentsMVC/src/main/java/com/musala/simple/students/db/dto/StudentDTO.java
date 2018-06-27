@@ -37,7 +37,7 @@ public class StudentDTO {
             return this;
         }
 
-        public StudentDTOBuilder grade(double grad) {
+        public StudentDTOBuilder grade(double grade) {
             this.grade = grade;
             return this;
         }

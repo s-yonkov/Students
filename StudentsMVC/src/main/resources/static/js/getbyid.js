@@ -4,33 +4,45 @@ $(document).ready(
 			// GET REQUEST
 			$("#getStudentById").click(function(event) {
 				var id = $('#searchId').val();
-				var dbType = $('#dbType').val();
-				event.preventDefault();
-				ajaxGetById(id, dbType);
+				var dbTypes = [];
+				
+				$(".dbType:checked").each(function() {
+					dbTypes.push("dbTypes=" + $(this).val() + "&");
+				});
+				
+				dbTypes[dbTypes.length - 1] = dbTypes[dbTypes.length - 1].slice(0, -1);
+				console.log(dbTypes);
+				
+				var result = dbTypes.join("");
+				console.log(result);
+				
+				ajaxGetById(id, result);
 			});
 
-			function ajaxGetById(id, dbType) {
+			function ajaxGetById(id, result) {
 
 				$.ajax({
 					type : "GET",
-					url : window.location + "api/student/" + dbType + "/" + id,
+					url : window.location + "api/student/" + id + "?" + result,
 					success : function(result) {
-						if (result != null) {
+						if (result.name != null) {
 							$('#resultDiv ul').empty();
 							var custList = "";
 							var student = "- Student with Id = " + result.id
 									+ ", firstname = " + result.name
 									+ ", age = " + result.age + ", grade = "
 									+ result.grade + "<br>";
-							$('#resultDiv .list-result').append(student)
+							$('#resultDiv .list-result').append(student);
 							console.log("Success: ", result);
 						} else {
-							$("#resultDiv").html("<strong>Error</strong>");
+							$('#resultDiv ul').empty();
+							$('#resultDiv .list-result').append("No such ID");
 							console.log("Fail: ", result);
 						}
 					},
 					error : function(e) {
-						$("#postResultDiv").html("<strong>Error</strong>");
+						$('#resultDiv ul').empty();
+						$('#resultDiv .list-result').append("<strong>Error</strong>");
 						console.log("ERROR: ", e);
 					}
 				});
