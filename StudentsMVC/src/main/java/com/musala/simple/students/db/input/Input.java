@@ -1,7 +1,5 @@
 package com.musala.simple.students.db.input;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import com.musala.simple.students.db.dto.StudentDTO;
@@ -13,7 +11,6 @@ public class Input {
     private StudentDTO student;
 
     public Input() {
-
     }
 
     public Input(String[] dbType, StudentDTO student) {

@@ -3,6 +3,14 @@ $(document).ready(
 
 			// GET REQUEST
 			$("#getAllStudentsBtnId").click(function(event) {
+				
+			      checked = $(".dbType:checked").length;
+
+			      if(!checked) {
+			        alert("You must check at least one checkbox.");
+			        return false;
+			      }
+			      
 				event.preventDefault();
 				var dbTypes = [];
 				
@@ -37,13 +45,13 @@ $(document).ready(
 							console.log("Success: ", result);
 						} else {
 							$('#resultDiv ul').empty();	
-							$('#resultDiv .list-result').append("<strong>Error</strong>");
+							$('#resultDiv .list-result').append("<strong>No available records to show</strong>");
 							console.log("Fail: ", result);
 						}
 					},
 					error : function(e) {
 						$('#resultDiv ul').empty();	
-						$('#resultDiv .list-result').append("<strong>Error</strong>");
+						$('#resultDiv .list-result').append("<strong>Connection problem</strong>");
 						console.log("ERROR: ", e);
 					}
 				});

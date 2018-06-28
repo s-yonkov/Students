@@ -1,6 +1,8 @@
 package com.musala.simple.students.db.mongo;
 
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,12 +11,17 @@ public class MongoStudent {
 
     @Id
     private long id;
+    @NotNull
+    @Size(min = 1, max = 100)
     private String name;
+    @NotNull
+    @Size(min = 12, max = 99)
     private int age;
+    @NotNull
+    @Size(min = 2, max = 6)
     private double grade;
 
     public MongoStudent() {
-
     }
 
     public MongoStudent(long id, String name, int age, double grade) {

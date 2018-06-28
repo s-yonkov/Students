@@ -1,0 +1,11 @@
+com.musala.simple.students.db
+com.musala.simple.students.db.controler
+com.musala.simple.students.db.dao
+com.musala.simple.students.db.dbtypes
+com.musala.simple.students.db.dto
+com.musala.simple.students.db.input
+com.musala.simple.students.db.mapper
+com.musala.simple.students.db.model
+com.musala.simple.students.db.mongo
+com.musala.simple.students.db.mysql
+com.musala.simple.students.db.response

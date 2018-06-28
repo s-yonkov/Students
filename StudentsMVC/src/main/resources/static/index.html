@@ -12,7 +12,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/js/poststudent.js"></script>
-<script src="/js/getrequest.js"></script>
+<script src="/js/getall.js"></script>
 <script src="/js/getbyid.js"></script>
 </head>
 <body>
@@ -33,7 +33,7 @@
 			<form id="studentForm">
 				<div class="form-group">
 					<label for="id">ID:</label> <input type="number"
-						class="form-control" id="id" placeholder="Enter ID" required />
+						class="form-control" id="id" placeholder="Enter ID" min="1" max="9223372036854775807" required />
 				</div>
 				<div class="form-group">
 					<label for="name">Name:</label> <input type="text"
@@ -41,11 +41,11 @@
 				</div>
 				<div class="form-group">
 					<label for="age">Age:</label> <input type="number"
-						class="form-control" id="age" placeholder="Enter Age" required />
+						class="form-control" id="age" placeholder="Enter Age" min="16" max="99" required />
 				</div>
 				<div class="form-group">
 					<label for="grade">Grade:</label> <input type="number"
-						class="form-control" id="grade" placeholder="Enter Grade" required />
+						class="form-control" id="grade" placeholder="Enter Grade" min="2" max="6" required />
 				</div>
 
 				<button style="margin-bottom: 10px" type="submit"

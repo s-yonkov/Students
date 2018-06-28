@@ -3,6 +3,19 @@ $(document).ready(
 
 			// GET REQUEST
 			$("#getStudentById").click(function(event) {
+				
+			      checked = $(".dbType:checked").length;
+
+			      if(!checked) {
+			        alert("You must check at least one checkbox.");
+			        return false;
+			      }
+			      
+			     if($('#searchId').val() == null || $('#searchId').val() == "" || $('#searchId').val().length == 0){
+				        alert("Please insert ID");
+				        return false;
+			     }
+			      
 				var id = $('#searchId').val();
 				var dbTypes = [];
 				
@@ -42,7 +55,7 @@ $(document).ready(
 					},
 					error : function(e) {
 						$('#resultDiv ul').empty();
-						$('#resultDiv .list-result').append("<strong>Error</strong>");
+						$('#resultDiv .list-result').append("<strong>Connection problem</strong>");
 						console.log("ERROR: ", e);
 					}
 				});

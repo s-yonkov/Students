@@ -21,7 +21,6 @@ public class MongoStudentDAO implements StudentDAO {
 
     @Override
     public StudentDTO getStudentById(long id) {
-
         if (mongoRepo.findById(id).isPresent()) {
             return StudentMapper.mapToStudentDTO(mongoRepo.findById(id).get());
         } else {

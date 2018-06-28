@@ -3,7 +3,6 @@ package com.musala.simple.students.db.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,16 +29,14 @@ public class StudentGroup {
     }
 
     public StudentDTO getStudentById(int id) {
-
         if (id <= this.students.size()) {
             return this.students.get(id - 1);
         } else {
             throw new IllegalArgumentException("There is no such ID.");
         }
     }
-    
+
     public void addStudent(StudentDTO student) {
         this.students.add(student);
     }
-
 }

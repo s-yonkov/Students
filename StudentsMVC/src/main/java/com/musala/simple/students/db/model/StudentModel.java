@@ -34,7 +34,6 @@ public class StudentModel {
     }
 
     public StudentDTO getStudentByID(List<DataBaseType> dbTypes, long id) {
-
         for (DataBaseType db : dbTypes) {
             if (mapToDb(db).getStudentById(id) != null) {
                 return mapToDb(db).getStudentById(id);

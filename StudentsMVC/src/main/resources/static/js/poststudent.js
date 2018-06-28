@@ -1,8 +1,17 @@
 $(document).ready(function() {
-
+	
+	
 	$("#studentForm").submit(function(event) {
+		
+	      checked = $(".dbType:checked").length;
+
+	      if(!checked) {
+	        alert("You must check at least one checkbox.");
+	        return false;
+	      }
+	      
 		event.preventDefault();
-		ajaxPost();
+		ajaxPost();		
 	});
 
 	function ajaxPost() {
@@ -40,12 +49,12 @@ $(document).ready(function() {
 						+ result.student.grade + " - Has been added" + "<br>";
 					$('#resultDiv .list-result').append(student);
 				} else {
-					$("#postResultDiv").html("<strong>Error</strong>");
+					$("#postResultDiv").html("<strong>Unable to add the record</strong>");
 				}
 				console.log(result);
 			},
 			error : function(e) {
-				alert("Error!")
+				alert("Connection problem")
 				console.log("ERROR: ", e);
 			}
 		});
@@ -60,5 +69,14 @@ $(document).ready(function() {
 		$("#name").val("");
 		$("#age").val("");
 		$("#grade").val("");
+	}
+	
+	function testcheck()
+	{
+	    if (!jQuery("#dbType").is(":checked")) {
+	        alert("none checked");
+	        return false;
+	    }
+	    return true;
 	}
 })

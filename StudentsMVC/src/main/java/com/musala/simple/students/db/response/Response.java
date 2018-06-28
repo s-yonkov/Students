@@ -1,4 +1,4 @@
-package com.musala.simple.students.db.controler;
+package com.musala.simple.students.db.response;
 
 import com.musala.simple.students.db.dto.StudentDTO;
 
@@ -8,7 +8,6 @@ public class Response {
     private StudentDTO student;
 
     public Response(String massage, StudentDTO student) {
-        super();
         this.massage = massage;
         this.student = student;
     }
