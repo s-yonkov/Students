@@ -14,6 +14,7 @@ public class Input {
     }
 
     public Input(String[] dbType, StudentDTO student) {
+        
         this.dbTypes = dbType;
         this.student = student;
     }

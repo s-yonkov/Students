@@ -22,6 +22,7 @@
 		<h3 style="color: blue">Students</h3>
 
 		<div class="row col-md-6">
+
 			<div id="checkboxlist">
 				<div>
 					<input type="checkbox" value="MONGO" class="dbType"> MONGO
@@ -33,7 +34,8 @@
 			<form id="studentForm">
 				<div class="form-group">
 					<label for="id">ID:</label> <input type="number"
-						class="form-control" id="id" placeholder="Enter ID" min="1" max="9223372036854775807" required />
+						class="form-control" id="id" placeholder="Enter ID" min="1"
+						max="9223372036854775807" required />
 				</div>
 				<div class="form-group">
 					<label for="name">Name:</label> <input type="text"
@@ -41,11 +43,13 @@
 				</div>
 				<div class="form-group">
 					<label for="age">Age:</label> <input type="number"
-						class="form-control" id="age" placeholder="Enter Age" min="16" max="99" required />
+						class="form-control" id="age" placeholder="Enter Age" min="16"
+						max="99" required />
 				</div>
 				<div class="form-group">
 					<label for="grade">Grade:</label> <input type="number"
-						class="form-control" id="grade" placeholder="Enter Grade" min="2" max="6" required />
+						class="form-control" id="grade" placeholder="Enter Grade" min="2"
+						max="6" required />
 				</div>
 
 				<button style="margin-bottom: 10px" type="submit"
@@ -65,16 +69,48 @@
 			<button id="getAllStudentsBtnId" type="button"
 				class="btn btn-primary" style="margin: 10px 0px 10px 0px;">Get
 				All Students</button>
+
+
 			<div id="resultGetAllStudentDiv">
 				<ul class="list-group">
 				</ul>
 			</div>
 
-			<div id="resultDiv" style="margin: 10px 0px 10px 0px;">
-				<ul class="list-result">
+			<div id="resultDiv22" style="margin: 10px 0px 10px 0px;">
+				<ul class="list-result22">
 				</ul>
 			</div>
+
+			<div class="tableContainer">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>MYSQL</th>
+							<th>MONGO</th>
+							<th>ALL</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td id="resultDivMYSQL">
+								<ul class="list-result">
+								</ul>
+							</td>
+							<td id="resultDivMongo">
+								<ul class="list-result">
+								</ul>
+							</td>
+							<td id="resultDivAll">
+								<ul class="list-result">
+								</ul>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
+
+
 	</div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.musala.simple.students.db.controler;
+package com.musala.simple.students.db.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

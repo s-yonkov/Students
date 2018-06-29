@@ -1,15 +1,29 @@
 package com.musala.simple.students.db.response;
 
+import java.util.ArrayList;
+
 import com.musala.simple.students.db.dto.StudentDTO;
+import com.musala.simple.students.db.dto.StudentGroup;
 
 public class Response {
 
+    private String[] dbTypes;
     private String massage;
-    private StudentDTO student;
+    private StudentGroup students;
 
-    public Response(String massage, StudentDTO student) {
+    public Response(String massage, StudentGroup students) {
         this.massage = massage;
-        this.student = student;
+        this.students = students;
+    }
+
+    public Response(String massage, StudentGroup students, String[] dbTypes) {
+        this.massage = massage;
+        this.students = students;
+        this.dbTypes = dbTypes;
+    }
+
+    public Response() {
+
     }
 
     public String getMassage() {
@@ -20,12 +34,24 @@ public class Response {
         this.massage = massage;
     }
 
-    public StudentDTO getStudent() {
-        return student;
+    public StudentGroup getStudents() {
+        return students;
     }
 
-    public void setStudent(StudentDTO student) {
-        this.student = student;
+    public void setStudents(StudentGroup students) {
+        this.students = students;
+    }
+
+    public String[] getDbTypes() {
+        return dbTypes;
+    }
+
+    public void setDbTypes(String[] dbTypes) {
+        this.dbTypes = dbTypes;
+    }
+    
+    public void setStudents(ArrayList<StudentDTO> students) {
+        this.students.addStudents(students);
     }
 
 }
