@@ -4,8 +4,16 @@ import com.musala.simple.students.db.dto.StudentDTO;
 import com.musala.simple.students.db.mongo.MongoStudent;
 import com.musala.simple.students.db.mysql.MySQLStudent;
 
+/*
+ * A class responsible for mapping of student data onto DTO object
+ */
 public class StudentMapper {
 
+    /**
+     * Maps a {@link MongoStudent} to a student DTO
+     * @param mongoStudent
+     * @return the resulting {@link StudentDTO}
+     */ 
     public static StudentDTO mapToStudentDTO(MongoStudent mongoStudent) {
         return new StudentDTO.StudentDTOBuilder(mongoStudent.getId(), mongoStudent.getName()).age(mongoStudent.getAge())
                 .grade(mongoStudent.getGrade()).build();
