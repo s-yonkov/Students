@@ -4,6 +4,11 @@ import org.springframework.stereotype.Component;
 
 import com.musala.simple.students.db.dto.StudentDTO;
 
+/**
+ * 
+ * This class is used to wrap the input passed from the Front-end
+ *
+ */
 @Component
 public class Input {
 

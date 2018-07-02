@@ -5,6 +5,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * 
+ * This class is used to hold a collection of students of type - {@link StudentDTO}
+ *
+ */
 @Component
 public class StudentGroup {
 

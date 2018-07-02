@@ -19,6 +19,9 @@ public class StudentDTO {
     @Size(min = 2, max = 6)
     private double grade;
 
+    /**
+     * Instances of this class are used as a Data transfer objects to pass them from and to the Front-end.
+     */
     private StudentDTO() {
     }
 
@@ -29,6 +32,11 @@ public class StudentDTO {
         this.grade = builder.grade;
     }
 
+    /**
+     * 
+     * This class is used for building/initializing instance of type {@link StudentDTO}
+     *
+     */
     public static class StudentDTOBuilder {
 
         private long id;
