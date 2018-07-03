@@ -28,6 +28,8 @@ $(document).ready(
 								case "CONNECTION_PROBLEM":
 									printConnectionProblem(response);
 									break;
+								case "INVALID_DB"
+								    printInvalidDB();
 								default:
 									console.log("Problem in States swtich-case")
 								}
@@ -100,6 +102,13 @@ $(document).ready(
 				default:
 					console.log("Error in print")
 				}
+			}
+			
+			function printInvalidDB() {
+				$('#resultDivMYSQL ul').empty();
+				$('#resultDivMongo ul').empty();
+				$('#resultDivAll ul').empty();
+				$('#resultDivMYSQL .list-result').append("Invalid Database type selected");
 			}
 
 		})

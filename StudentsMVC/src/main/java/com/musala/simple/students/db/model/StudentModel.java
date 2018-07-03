@@ -13,6 +13,7 @@ import com.musala.simple.students.db.dao.StudentDAO;
 import com.musala.simple.students.db.dbtypes.DataBaseType;
 import com.musala.simple.students.db.dto.StudentDTO;
 import com.musala.simple.students.db.dto.StudentGroup;
+import com.musala.simple.students.db.exceptions.IllegalDataBaseException;
 import com.musala.simple.students.db.exceptions.MongoConnectionException;
 import com.musala.simple.students.db.exceptions.MySQLConnectionException;
 import com.musala.simple.students.db.mongo.MongoStudentDAO;
@@ -71,6 +72,10 @@ public class StudentModel {
                 response.getDbResponses().add(dbResponse);
 
                 return response;
+            } catch (IllegalDataBaseException e) {
+                response.addDbResponse(new DatabaseResponse(State.INVALID_DB));
+                
+                return response;
             }
         }
 
@@ -106,6 +111,8 @@ public class StudentModel {
                 response.addDbResponse(new DatabaseResponse(State.CONNECTION_PROBLEM, db.toString()));
             } catch (MongoConnectionException e) {
                 response.addDbResponse(new DatabaseResponse(State.CONNECTION_PROBLEM, db.toString()));
+            } catch (IllegalDataBaseException e) {
+                response.addDbResponse(new DatabaseResponse(State.INVALID_DB));
             }
         }
 
@@ -137,6 +144,8 @@ public class StudentModel {
                 response.addDbResponse(new DatabaseResponse(State.CONNECTION_PROBLEM, db.toString()));
             } catch (MongoConnectionException e) {
                 response.addDbResponse(new DatabaseResponse(State.CONNECTION_PROBLEM, db.toString()));
+            } catch (IllegalDataBaseException e) {
+                response.addDbResponse(new DatabaseResponse(State.INVALID_DB));
             }
 
         }
@@ -145,12 +154,12 @@ public class StudentModel {
     }
 
     private void addStudent(DataBaseType dbType, StudentDTO studentDTO)
-            throws MySQLConnectionException, MongoConnectionException {
+            throws MySQLConnectionException, MongoConnectionException, IllegalDataBaseException {
 
         mapToDb(dbType).insertStudent(studentDTO);
     }
 
-    private StudentDAO mapToDb(DataBaseType db) {
+    private StudentDAO mapToDb(DataBaseType db) throws IllegalDataBaseException {
 
         switch (db) {
             case MONGO:
@@ -158,7 +167,7 @@ public class StudentModel {
             case MYSQL:
                 return mysql;
             default:
-                return null;
+                throw new IllegalDataBaseException();
         }
     }
 

@@ -31,9 +31,12 @@ public class DatabaseResponse {
         this.state = state;
         this.dbType = dbTypes;
     }
+    
+    public DatabaseResponse(State state) {
+        this.state = state;
+    }
 
     public DatabaseResponse() {
-
     }
 
     public State getState() {

@@ -1,17 +1,14 @@
 # Students with DB #
 
-A simple program which is parsing info from JSON file(the path of the file is passed by the user) into Java objects. The program is storing the data in a database. The user can choose which database(DB) to use - relational DB(MySQL) or non relational/document oriented DB(MongoDB) or to use both DBs at the same time.
-
+Enterprise program with simple Web UI. The program is storing the data in a database. The user can choose which database(DB) to use - relational DB(MySQL) or non relational/document oriented DB(MongoDB) or to use both DBs at the same time. The program can be extended to use more databases.
 
 
 ## Possible inputs ##
 
-
-
-The program accepts up to ***3*** arguments.
-1. The first argument should always be a valid path to a file like ```C:\ExampleFolder\TargetFolder\targetFile.json```.
-2. The second argument is optional and should be an integer number and a valid ID from the file.
-3. The third argument is also optional and should be a short word for which DB to be used or if both DB should be used - possible values of the third argument - ```Mongo```, ```MySql``` or ```Both```. The input is ***not*** case sensitive.
+The user can operate with the program via simple Web page.
+1. The user can access which and how many databases to use for the operations - in the current state - MongoDB, MySQL or All at the same time.
+2. The user can access all records from the databases. The records will be presented according to the corresponding database. In other words if we have 5 records in the MongoDB they will be printed in the Mongo column on the webpage.
+3. The user can access a particular student by ID.
 
 
 ## Possible outputs ##
@@ -19,21 +16,23 @@ The program accepts up to ***3*** arguments.
 
 The output depends on the input format, below are listed example possible outputs:
 
-#### 1. One argument passed: ####
+#### 1. If all records are requested: ####
 
-   * If only one argument is passed and it is a valid path to a file the program will read the file, store the info in a DB and print the content on the console.
-   * If only one argument is passed but it is not a valid path, the program will notify for the invalid argument and will print the content of the DB if it is not empty.
-   * If only one argument is passed but it is not a valid path and the DB is empty the program will indicate for an error.
+   * If both databases are working fine and have records all records will be printed in their coresponding column - for example all MongoDB records will be presented in the Mongo column and the same for MySQL records - in the MySQL column.
+   * If only one DB is selected all records only from the selected DB will be presented(if any available)
+   * If there is a problem with the DB or there are no records in the DB a proper messagae will be printed in the coresponding column like - "Problem with the Database" or "No IDs available" and etc.
    
-#### 2. Two arguments passed: ####
+#### 2. If student by ID is requested: ####
 
-   * If both arguments are valid - the path is correct and the second argument is valid integer and existing ID in the file, the program will print only the record with this ID
-   * If the second argument is not valid the program will print an error messagae ```Requested student does not exist in the data.``` and will print all records
-   * If the path is incorrect the program will behave as in the previous point.
+   * If both databases are working fine and have a student with the requested ID the records will be presented in the coresponding column/Mongo or MySQL/.
+   * If only one DB is selected and the there is a student with the requested ID it will be presented in the column of the selected DB.
+   * If something is wrong with the DB(shutdown or connection problem) a proper messagae will be presented in the DB's column.
+   * If the ID is not found in the DB the user will see a proper messagae like "No such ID".
    
-#### 3. Three arguments passed ####
+#### 3. Recording student in the DB ####
 
-   * The third argument is for choosing which DB to be used(or both) for storing the data. ```Mongo``` or ```MySql``` will store the data  respectively in Mongo DB or in MySQL, if ```Both``` is passed the data will be stored in both DBs.
+   * If all DBs are working fine and are selected the Student will be saved and the user will see a confirmation messagae in which DB.
+   * If there is a problem with the DB the user will receive a messagae for a problem and the Student will not be saved.
    
 
 ## Technical requirements ##
@@ -73,4 +72,16 @@ alt="" width="240" height="180" border="10" /></a>
 " target="_blank"><img src="http://img.youtube.com/vi/N6ENnaRotmo/0.jpg" 
 alt="" width="240" height="180" border="10" /></a>
 
+## Technologies ##
 
+   * Java EE
+   * Spring boot
+   * MVC
+   * JDBC
+   * Ajax
+   * jQuery
+   * Java Script
+   * MongoDB
+   * MySQL
+   * Maven
+   * Bootstrap   

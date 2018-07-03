@@ -7,5 +7,6 @@ package com.musala.simple.students.db.response;
 public enum State {
     SUCCESS,
     CONNECTION_PROBLEM,
-    NO_SUCH_ID
+    NO_SUCH_ID,
+    INVALID_DB
 }

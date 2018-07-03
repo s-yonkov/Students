@@ -34,8 +34,10 @@ $(document).ready(
 								case "NO_SUCH_ID":
 									printNoSuchId(response);
 									break;
+								case "INVALID_DB"
+							    	printInvalidDB();
 								default:
-									console.log("Problem")
+									console.log("Error durring switch on states")
 								}
 							});
 						}
@@ -118,6 +120,13 @@ $(document).ready(
 				default:
 					console.log("Error in print")
 				}
+			}
+			
+			function printInvalidDB() {
+				$('#resultDivMYSQL ul').empty();
+				$('#resultDivMongo ul').empty();
+				$('#resultDivAll ul').empty();
+				$('#resultDivMYSQL .list-result').append("Invalid Database type selected");
 			}
 
 		})
