@@ -34,8 +34,9 @@ $(document).ready(
 								case "NO_SUCH_ID":
 									printNoSuchId(response);
 									break;
-								case "INVALID_DB"
-							    	printInvalidDB();
+								case "INVALID_DB":
+									printInvalidDB();
+									break;
 								default:
 									console.log("Error durring switch on states")
 								}
@@ -92,7 +93,7 @@ $(document).ready(
 						+ response.students.students[0].id + ", firstname = "
 						+ response.students.students[0].name + ", age = "
 						+ response.students.students[0].age + ", grade = "
-						+ response.students.students[0].grade + "<br>";
+						+ response.students.students[0].grade + "<br/>";
 
 				print(response.dbType, result);
 			}

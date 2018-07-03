@@ -4,7 +4,7 @@ import com.musala.simple.students.db.dto.StudentDTO;
 import com.musala.simple.students.db.mongo.MongoStudent;
 import com.musala.simple.students.db.mysql.MySQLStudent;
 
-/*
+/**
  * A class responsible for mapping of entity data onto DTO object
  */
 public class StudentMapper {

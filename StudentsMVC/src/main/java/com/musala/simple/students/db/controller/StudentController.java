@@ -1,7 +1,5 @@
 package com.musala.simple.students.db.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +21,7 @@ public class StudentController {
     private StudentModel studentModel;
 
     @PostMapping(value = "/save")
-    public Response insertStudent(@RequestBody @Valid Input input) {
+    public Response insertStudent(@RequestBody Input input) {
 
         Response response = studentModel.addStudent(input.getDbTypes(), input.getStudent());
         return response;
@@ -43,4 +41,13 @@ public class StudentController {
         return response;
 
     }
+
+    /*
+     * @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+     * public ResponseEntity<StudentDTO> insertStudent(@RequestBody Input input) {
+     * 
+     * 
+     * return ResponseEntity.ok(new StudentDTO.StudentDTOBuilder(3,"asdas").build());
+     * }
+     */
 }

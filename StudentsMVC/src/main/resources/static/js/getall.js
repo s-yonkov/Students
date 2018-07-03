@@ -28,8 +28,9 @@ $(document).ready(
 								case "CONNECTION_PROBLEM":
 									printConnectionProblem(response);
 									break;
-								case "INVALID_DB"
-								    printInvalidDB();
+								case "INVALID_DB":
+									printInvalidDB();
+								    break;
 								default:
 									console.log("Problem in States swtich-case")
 								}
@@ -78,7 +79,7 @@ $(document).ready(
 						+ student.id + ", firstname = "
 						+ student.name + ", age = "
 						+ student.age + ", grade = "
-						+ student.grade + "<br>");
+						+ student.grade + "<br/>");
 				});
 
 				print(response.dbType, result);
