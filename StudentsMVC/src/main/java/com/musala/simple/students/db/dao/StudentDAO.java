@@ -18,7 +18,10 @@ public interface StudentDAO {
     /**
      * Insert a {@link StudentDTO} in the Database
      * 
-     * @param StudentDTO
+     * @param student of type {@link StudentDTO}
+     * @throws MySQLConnectionException will be thrown if something is wrong with the connection with MySQL database
+     * @throws MongoConnectionException will be thrown if something is wrong with the connection with Mongo database
+     * 
      */
     public void insertStudent(StudentDTO student) throws MySQLConnectionException, MongoConnectionException;
 
@@ -28,6 +31,9 @@ public interface StudentDAO {
      * @return {@link StudentDTO}
      * @param id - the id of the StudentDTO;
      *            Should be of type long.
+     * @throws MySQLConnectionException will be thrown if something is wrong with the connection with MySQL database
+     * @throws MongoConnectionException will be thrown if something is wrong with the connection with Mongo database         
+     * 
      */
     public StudentDTO getStudentById(long id) throws MySQLConnectionException, MongoConnectionException;
 
@@ -36,6 +42,8 @@ public interface StudentDAO {
      * 
      * @param students of type {@link StudentGroup}
      *
+     * @throws MongoConnectionException will be thrown if something is wrong with the connection with Mongo database
+     * 
      */
     public void insertStudents(StudentGroup students) throws MongoConnectionException;
 
@@ -43,7 +51,9 @@ public interface StudentDAO {
      * Returns collection of students from the Database
      * 
      * @return {@link StudentGroup}
-     *
+     * @throws MongoConnectionException will be thrown if something is wrong with the connection with Mongo database
+     * @throws MySQLConnectionException will be thrown if something is wrong with the connection with MySQL database
+     * 
      */
     public StudentGroup getStudents() throws MySQLConnectionException, MongoConnectionException;
 
