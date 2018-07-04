@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<title>Students</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/poststudent.js"></script>
+<script src="/js/getall.js"></script>
+<script src="/js/getbyid.js"></script>
+</head>
+<body>
+
+	<div class="container">
+
+		<h3 style="color: blue">Students</h3>
+
+		<div class="row col-md-6">
+
+			<div id="checkboxlist">
+				<div>
+					<input type="checkbox" value="MONGO" class="dbType"> MONGO
+				</div>
+				<div>
+					<input type="checkbox" value="MYSQL" class="dbType"> MYSQL
+				</div>
+			</div>
+			<form id="studentForm">
+				<div class="form-group">
+					<label for="id">ID:</label> <input type="number"
+						class="form-control" id="id" placeholder="Enter ID" min="1"
+						max="2147483647" required />
+				</div>
+				<div class="form-group">
+					<label for="name">Name:</label> <input type="text"
+						class="form-control" id="name" placeholder="Enter Name" required />
+				</div>
+				<div class="form-group">
+					<label for="age">Age:</label> <input type="number"
+						class="form-control" id="age" placeholder="Enter Age" min="16"
+						max="99" required />
+				</div>
+				<div class="form-group">
+					<label for="grade">Grade:</label> <input type="number"
+						class="form-control" id="grade" placeholder="Enter Grade" min="2"
+						max="6" required />
+				</div>
+
+				<button style="margin-bottom: 10px" type="submit"
+					class="btn btn-default">Add Student</button>
+
+			</form>
+
+			<div class="searc-id">
+				<label for="searchId">ID:</label> <input type="number"
+					class="searc-id" id="searchId" placeholder="Enter ID" />
+			</div>
+
+			<button id="getStudentById" type="button" class="btn btn-primary"
+				style="margin: 10px 0px 10px 0px;">Get Student by ID</button>
+
+			<!-- Get All students from back-end -->
+			<button id="getAllStudentsBtnId" type="button"
+				class="btn btn-primary" style="margin: 10px 0px 10px 0px;">Get
+				All Students</button>
+
+
+			<div id="resultGetAllStudentDiv">
+				<ul class="list-group">
+				</ul>
+			</div>
+
+			<div id="resultDiv22" style="margin: 10px 0px 10px 0px;">
+				<ul class="list-result22">
+				</ul>
+			</div>
+
+			<div class="tableContainer">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>MYSQL</th>
+							<th>MONGO</th>
+							<th>ALL</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td id="resultDivMYSQL">
+								<ul class="list-result">
+								</ul>
+							</td>
+							<td id="resultDivMongo">
+								<ul class="list-result">
+								</ul>
+							</td>
+							<td id="resultDivAll">
+								<ul class="list-result">
+								</ul>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
