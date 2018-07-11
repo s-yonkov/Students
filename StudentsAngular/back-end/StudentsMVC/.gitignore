@@ -1,0 +1,7 @@
+*.class
+bin/
+*/bin/*
+target/classes
+*/target/classes/*
+pom.properties
+/target/
