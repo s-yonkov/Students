@@ -1,0 +1,10 @@
+<div>
+<h1> Students</h1>
+
+<div *ngFor="let dbresponse of dbResponses">
+    <h2>{{dbresponse.dbType}}</h2>
+    <div *ngFor="let student of dbresponse.students.students">
+        <p><strong>ID: </strong>{{student.id}}, <strong>Name: </strong>{{student.name}},<strong>Age: </strong>{{student.age}}, <strong>Grade</strong> {{student.grade}}</p>
+    </div>
+</div>
+</div>
