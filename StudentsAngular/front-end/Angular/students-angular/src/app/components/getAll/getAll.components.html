@@ -1,10 +1,45 @@
-<div>
-<h1> Students</h1>
+<div class="container">
+  <h3>Please choose database:</h3>
+  <form>
+    <label class="checkbox-inline">
+      <input type="checkbox" class="dbType" value="mongo">Mongo
+    </label>
+    <label class="checkbox-inline">
+      <input type="checkbox" class="dbType" value="mysql">MySQL
+    </label>
+  </form>
+  <button (click)="showStudents()" class="btn btn-primary">Show students</button>
+  <div *ngIf="showResult">
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <h4>Mongo</h4>
+        <div *ngFor="let dbresponse of dbResponses">
+          <div *ngIf="dbresponse.dbType === 'MONGO'">
+            <div *ngFor="let student of dbresponse.students.students">
+              <p>
+                <strong>ID: </strong>{{student.id}},
+                <strong>Name: </strong>{{student.name}},
+                <strong>Age: </strong>{{student.age}},
+                <strong>Grade</strong> {{student.grade}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <h4>MySQL</h4>
+        <div *ngFor="let dbresponse of dbResponses">
+          <div *ngIf="dbresponse.dbType === 'MYSQL'">
+            <div *ngFor="let student of dbresponse.students.students">
+              <p>
+                <strong>ID: </strong>{{student.id}},
+                <strong>Name: </strong>{{student.name}},
+                <strong>Age: </strong>{{student.age}},
+                <strong>Grade</strong> {{student.grade}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<div *ngFor="let dbresponse of dbResponses">
-    <h2>{{dbresponse.dbType}}</h2>
-    <div *ngFor="let student of dbresponse.students.students">
-        <p><strong>ID: </strong>{{student.id}}, <strong>Name: </strong>{{student.name}},<strong>Age: </strong>{{student.age}}, <strong>Grade</strong> {{student.grade}}</p>
     </div>
-</div>
-</div>
+
+  </div>
