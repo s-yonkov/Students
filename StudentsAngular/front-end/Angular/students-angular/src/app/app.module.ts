@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { AlertModule } from 'ngx-bootstrap';
 import { AppComponent } from './app.component';
 import { GetAllStudentsComponent } from './components/getAll/getAll.component';
-import * as $ from 'jquery';
 
 @NgModule({
   declarations: [

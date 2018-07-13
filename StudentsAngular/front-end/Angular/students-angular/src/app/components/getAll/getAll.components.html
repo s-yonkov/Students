@@ -9,37 +9,24 @@
     </label>
   </form>
   <button (click)="showStudents()" class="btn btn-primary">Show students</button>
-  <div *ngIf="showResult">
-    <div class="row">
-      <div class="col-xs-12 col-md-6">
-        <h4>Mongo</h4>
-        <div *ngFor="let dbresponse of dbResponses">
-          <div *ngIf="dbresponse.dbType === 'MONGO'">
-            <div *ngFor="let student of dbresponse.students.students">
-              <p>
-                <strong>ID: </strong>{{student.id}},
-                <strong>Name: </strong>{{student.name}},
-                <strong>Age: </strong>{{student.age}},
-                <strong>Grade</strong> {{student.grade}}</p>
-            </div>
-          </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <h4>Mongo</h4>
+      <div *ngIf="showResult">
+        <div *ngFor="let record of mongoOutput">
+          <p>{{record}}</p>
         </div>
       </div>
-      <div class="col-xs-12 col-md-6">
-        <h4>MySQL</h4>
-        <div *ngFor="let dbresponse of dbResponses">
-          <div *ngIf="dbresponse.dbType === 'MYSQL'">
-            <div *ngFor="let student of dbresponse.students.students">
-              <p>
-                <strong>ID: </strong>{{student.id}},
-                <strong>Name: </strong>{{student.name}},
-                <strong>Age: </strong>{{student.age}},
-                <strong>Grade</strong> {{student.grade}}</p>
-            </div>
-          </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <h4>MySQL</h4>
+      <div *ngIf="showResult">
+        <div *ngFor="let record of mysqlOutput">
+          <p>{{record}}</p>
         </div>
       </div>
-
     </div>
 
   </div>
+
+</div>
