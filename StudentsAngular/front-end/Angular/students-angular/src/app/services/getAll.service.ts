@@ -10,14 +10,11 @@ export class GetAllStudentsService {
 
     constructor(private http: Http) {
         console.log('PostService Initialized...');
-        this.result = this.http.get('http://localhost:8080/api/student/all?dbTypes=MONGO&dbTypes=MYSQL').pipe(map(res => res.json()));
-        console.log('COnstructor end');
     }
 
-    getPosts() {
-        console.log('TEST SERVICE');
+    getPosts(path: string) {
+        this.result = this.http.get(path).pipe(map(res => res.json()));
+
         return this.result;
-
     }
-
 }

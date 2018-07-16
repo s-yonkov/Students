@@ -7,7 +7,7 @@ import * as $ from 'jquery';
   templateUrl: './getAll.components.html',
   providers: [GetAllStudentsService]
 })
-export class GetAllStudentsComponent implements OnInit {
+export class GetAllStudentsComponent {
 
   dbResponses: DbResponse[];
   checkboxIsChecked: number;
@@ -16,24 +16,18 @@ export class GetAllStudentsComponent implements OnInit {
   mysqlOutput: String[] = [];
   mongoIsChecked: boolean;
   mysqlIsChecked: boolean;
+  path: string;
+  readonly url = 'http://localhost:8080/api/student/all?';
 
   constructor(private getAll: GetAllStudentsService) {
-    console.log('CONSTRUCTOR');
-  }
-
-  ngOnInit() {
-    console.log('CALL 1');
-
-    this.getAll.getPosts().subscribe((result) => {
-      this.dbResponses = result.dbResponses;
-      console.log(this.dbResponses);
-      console.log('CALL 2');
-      this.initValues();
-    });
   }
 
   initValues() {
-    let that =  this;
+    let that = this;
+    // Clear arrays before each call.
+    this.mongoOutput = [];
+    this.mysqlOutput = [];
+
     this.dbResponses.forEach(function (dbResponse) {
       switch (dbResponse.state) {
         case 'SUCCESS': {
@@ -57,11 +51,7 @@ export class GetAllStudentsComponent implements OnInit {
     });
   }
 
-  doSomething(resp: string): void {
-    console.log(resp);
-  }
-
-  initSuccessOutput (dbResponse) {
+  initSuccessOutput(dbResponse) {
     console.log(dbResponse);
     switch (dbResponse.dbType) {
       case 'MONGO':
@@ -89,13 +79,13 @@ export class GetAllStudentsComponent implements OnInit {
         this.mysqlOutput.push(message);
         break;
       default:
-        console.log('Invalid Db in initSuccessOutput');
+        console.log('Invalid Db in initErrOutput');
         break;
     }
   }
   showStudents() {
-
     if (this.validateCheckbox()) {
+      this.initResult();
       this.showResult = true;
     } else {
       this.showResult = false;
@@ -110,6 +100,31 @@ export class GetAllStudentsComponent implements OnInit {
     } else {
       return true;
     }
+  }
+
+  constructPath() {
+    let dbTypes = [];
+
+    $('.dbType:checked').each(function () {
+      dbTypes.push('dbTypes=' + $(this).val().toString().toUpperCase() + '&');
+    });
+
+    dbTypes[dbTypes.length - 1] = dbTypes[dbTypes.length - 1]
+      .slice(0, -1);
+
+    let result: string = dbTypes.join('');
+
+    this.path = this.url + result;
+  }
+
+  initResult() {
+    this.constructPath();
+
+    this.getAll.getPosts(this.path).subscribe((result) => {
+      this.dbResponses = result.dbResponses;
+      this.initValues();
+    });
+
   }
 }
 
