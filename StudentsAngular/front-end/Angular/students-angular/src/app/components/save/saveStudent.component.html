@@ -1,0 +1,39 @@
+<div class="container">
+
+
+    <h3>Please choose database:</h3>
+    <div class="row col-md-6">
+
+        <form>
+            <label class="checkbox-inline">
+                <input type="checkbox" class="dbType" value="MONGO">Mongo
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" class="dbType" value="MYSQL">MySQL
+            </label>
+        </form>
+        <hr />
+
+        <form id="studentForm">
+            <h3 style="color: blue">Student</h3>
+            <div class="form-group">
+                <label for="id"><strong>ID:</strong></label>
+                <input type="number" class="form-control" id="id" placeholder="Enter ID" min="1" max="2147483647" required />
+            </div>
+            <div class="form-group">
+                <label for="name"><strong>Name:</strong></label>
+                <input type="text" class="form-control" id="name" placeholder="Enter Name" required />
+            </div>
+            <div class="form-group">
+                <label for="age"><strong>Age:</strong></label>
+                <input type="number" class="form-control" id="age" placeholder="Enter Age" min="16" max="99" required />
+            </div>
+            <div class="form-group">
+                <label for="grade"><strong>Grade:</strong></label>
+                <input type="number" class="form-control" id="grade" placeholder="Enter Grade" min="2" max="6" required />
+            </div>
+
+            <button (click)="saveStudent()" style="margin-bottom: 10px" type="submit" class="btn btn-outline-primary">Add Student</button>
+        </form>
+    </div>
+</div>

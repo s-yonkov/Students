@@ -1,13 +1,15 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { GetAllStudentsService } from '../../services/getAll.service';
 import * as $ from 'jquery';
+import { initChangeDetectorIfExisting } from '../../../../node_modules/@angular/core/src/render3/instructions';
+
 
 @Component({
-  selector: 'app-get-all-students',
-  templateUrl: './getAll.components.html',
+  selector: 'app-get-by-id',
+  templateUrl: './getById.components.html',
   providers: [GetAllStudentsService]
 })
-export class GetAllStudentsComponent {
+export class GetStudentByIdComponent {
 
   dbResponses: DbResponse[];
   checkboxIsChecked: number;
@@ -17,9 +19,11 @@ export class GetAllStudentsComponent {
   mongoIsChecked: boolean;
   mysqlIsChecked: boolean;
   path: string;
-  readonly url = 'http://localhost:8080/api/student/all?';
+  readonly url = 'http://localhost:8080/api/student/';
+  id: string;
+  dbUrl: string;
 
-  constructor(private getAll: GetAllStudentsService) {
+  constructor(private get: GetAllStudentsService) {
   }
 
   initValues() {
@@ -38,12 +42,16 @@ export class GetAllStudentsComponent {
           that.initErrOutput(dbResponse, 'Connection problem with the Database');
           break;
         }
+        case 'NO_SUCH_ID': {
+          that.initErrOutput(dbResponse, 'No such ID');
+          break;
+        }
         case 'INVALID_DB': {
           that.initErrOutput(dbResponse, 'Invalid Database type selected');
           break;
         }
         default: {
-          console.log('Problem in the switch case');
+          console.log('Problem in the switch case in the responses');
           break;
         }
       }
@@ -81,8 +89,9 @@ export class GetAllStudentsComponent {
         break;
     }
   }
+
   showStudents() {
-    if (this.validateCheckbox()) {
+    if (this.validateCheckbox() && this.validateId()) {
       this.initResult();
       this.showResult = true;
     } else {
@@ -99,10 +108,35 @@ export class GetAllStudentsComponent {
       return true;
     }
   }
+  validateId() {
+
+    if ($('#searchId').val() == null || $('#searchId').val() === ''
+      || $('#searchId').length === 0) {
+      alert('Please insert ID');
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   constructPath() {
-    const dbTypes = [];
+    this.id = this.constructID();
+    this.dbUrl = this.constructDbUrl();
+    this.path = this.url + this.id + '?' + this.dbUrl;
+  }
 
+  initResult() {
+    this.constructPath();
+
+    this.get.getPosts(this.path).subscribe((result) => {
+      this.dbResponses = result.dbResponses;
+      this.initValues();
+    });
+
+  }
+
+  constructDbUrl() {
+    const dbTypes = [];
     $('.dbType:checked').each(function () {
       dbTypes.push('dbTypes=' + $(this).val().toString().toUpperCase() + '&');
     });
@@ -112,17 +146,13 @@ export class GetAllStudentsComponent {
 
     const result: string = dbTypes.join('');
 
-    this.path = this.url + result;
+    return result;
   }
 
-  initResult() {
-    this.constructPath();
+  constructID() {
+    const result: string = $('#searchId').val().toString();
 
-    this.getAll.getPosts(this.path).subscribe((result) => {
-      this.dbResponses = result.dbResponses;
-      this.initValues();
-    });
-
+    return result;
   }
 }
 
@@ -142,5 +172,3 @@ interface Student {
 interface Students {
   students: Student[];
 }
-
-
