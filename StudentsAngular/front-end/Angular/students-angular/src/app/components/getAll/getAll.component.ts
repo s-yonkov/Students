@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { GetStudentService } from '../../services/getAll.service';
 import * as $ from 'jquery';
 
@@ -12,21 +12,24 @@ export class GetAllStudentsComponent {
   dbResponses: DbResponse[];
   checkboxIsChecked: number;
   showResult: boolean;
-  mongoOutput: String[] = [];
-  mysqlOutput: String[] = [];
+  mongoOutput: Student[] = [];
+  mysqlOutput: Student[] = [];
   mongoIsChecked: boolean;
   mysqlIsChecked: boolean;
   path: string;
   readonly url = 'http://localhost:8080/api/student/all?';
+  mongoErrMsg: string;
+  mysqlErrMsg: string;
+  hasMongoErr: boolean;
+  hasMysqlErr: boolean;
 
   constructor(private getAll: GetStudentService) {
   }
 
   initValues() {
     const that = this;
-    // Clear arrays before each call.
-    this.mongoOutput = [];
-    this.mysqlOutput = [];
+    // Clear values before each call.
+    this.clearValues();
 
     this.dbResponses.forEach(function (dbResponse) {
       switch (dbResponse.state) {
@@ -54,12 +57,12 @@ export class GetAllStudentsComponent {
     switch (dbResponse.dbType) {
       case 'MONGO':
         dbResponse.students.students.forEach(student => {
-          this.mongoOutput.push('Id: ' + student.id + ' Name: ' + student.name + ' Age: ' + student.age + ' Grade: ' + student.grade);
+          this.mongoOutput.push(student);
         });
         break;
       case 'MYSQL':
         dbResponse.students.students.forEach(student => {
-          this.mysqlOutput.push('Id: ' + student.id + ' Name: ' + student.name + ' Age: ' + student.age + ' Grade: ' + student.grade);
+          this.mysqlOutput.push(student);
         });
         break;
       default:
@@ -71,16 +74,19 @@ export class GetAllStudentsComponent {
   initErrOutput(dbResponse: DbResponse, message: string) {
     switch (dbResponse.dbType) {
       case 'MONGO':
-        this.mongoOutput.push(message);
+        this.hasMongoErr = true;
+        this.mongoErrMsg = message;
         break;
       case 'MYSQL':
-        this.mysqlOutput.push(message);
+        this.hasMysqlErr = true;
+        this.mysqlErrMsg = message;
         break;
       default:
         console.log('Invalid Db in initErrOutput');
         break;
     }
   }
+
   showStudents() {
     if (this.validateCheckbox()) {
       this.initResult();
@@ -89,13 +95,15 @@ export class GetAllStudentsComponent {
       this.showResult = false;
     }
   }
+
   validateCheckbox() {
-    this.checkboxIsChecked = $('.dbType:checked').length;
+    this.checkboxIsChecked = $('.custom-control-input:checked').length;
 
     if (!this.checkboxIsChecked) {
       alert('You must check at least one checkbox.');
       return false;
     } else {
+      this.initChecboxValues();
       return true;
     }
   }
@@ -103,7 +111,7 @@ export class GetAllStudentsComponent {
   constructPath() {
     const dbTypes = [];
 
-    $('.dbType:checked').each(function () {
+    $('.custom-control-input:checked:checked').each(function () {
       dbTypes.push('dbTypes=' + $(this).val().toString().toUpperCase() + '&');
     });
 
@@ -123,6 +131,28 @@ export class GetAllStudentsComponent {
       this.initValues();
     });
 
+  }
+
+  initChecboxValues() {
+    this.mongoIsChecked = false;
+    this.mysqlIsChecked = false;
+    const that = this;
+    $('.custom-control-input:checked:checked').each(function () {
+      if ($(this).val().toString().toUpperCase() === 'MONGO') {
+        that.mongoIsChecked = true;
+      } else if ($(this).val().toString().toUpperCase() === 'MYSQL') {
+        that.mysqlIsChecked = true;
+      }
+    });
+  }
+
+  clearValues() {
+    this.mongoOutput = [];
+    this.mysqlOutput = [];
+    this.hasMongoErr = false;
+    this.hasMysqlErr = false;
+    this.mongoErrMsg = '';
+    this.mysqlErrMsg = '';
   }
 }
 

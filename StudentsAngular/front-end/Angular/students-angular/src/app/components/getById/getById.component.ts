@@ -14,23 +14,26 @@ export class GetStudentByIdComponent {
   dbResponses: DbResponse[];
   checkboxIsChecked: number;
   showResult: boolean;
-  mongoOutput: String[] = [];
-  mysqlOutput: String[] = [];
+  mongoOutput: Student[] = [];
+  mysqlOutput: Student[] = [];
   mongoIsChecked: boolean;
   mysqlIsChecked: boolean;
   path: string;
   readonly url = 'http://localhost:8080/api/student/';
   id: string;
   dbUrl: string;
+  mongoErrMsg: string;
+  mysqlErrMsg: string;
+  hasMongoErr: boolean;
+  hasMysqlErr: boolean;
 
   constructor(private get: GetStudentService) {
   }
 
   initValues() {
     const that = this;
-    // Clear arrays before each call.
-    this.mongoOutput = [];
-    this.mysqlOutput = [];
+    // Clear values before each call.
+    this.clearValues();
 
     this.dbResponses.forEach(function (dbResponse) {
       switch (dbResponse.state) {
@@ -57,17 +60,17 @@ export class GetStudentByIdComponent {
       }
     });
   }
-
   initSuccessOutput(dbResponse) {
     switch (dbResponse.dbType) {
       case 'MONGO':
+        this.hasMongoErr = false;
         dbResponse.students.students.forEach(student => {
-          this.mongoOutput.push('Id: ' + student.id + ' Name: ' + student.name + ' Age: ' + student.age + ' Grade: ' + student.grade);
+          this.mongoOutput.push(student);
         });
         break;
       case 'MYSQL':
         dbResponse.students.students.forEach(student => {
-          this.mysqlOutput.push('Id: ' + student.id + ' Name: ' + student.name + ' Age: ' + student.age + ' Grade: ' + student.grade);
+          this.mysqlOutput.push(student);
         });
         break;
       default:
@@ -75,21 +78,21 @@ export class GetStudentByIdComponent {
         break;
     }
   }
-
   initErrOutput(dbResponse: DbResponse, message: string) {
     switch (dbResponse.dbType) {
       case 'MONGO':
-        this.mongoOutput.push(message);
+        this.hasMongoErr = true;
+        this.mongoErrMsg = message;
         break;
       case 'MYSQL':
-        this.mysqlOutput.push(message);
+        this.hasMysqlErr = true;
+        this.mysqlErrMsg = message;
         break;
       default:
         console.log('Invalid Db in initErrOutput');
         break;
     }
   }
-
   showStudents() {
     if (this.validateCheckbox() && this.validateId()) {
       this.initResult();
@@ -99,12 +102,13 @@ export class GetStudentByIdComponent {
     }
   }
   validateCheckbox() {
-    this.checkboxIsChecked = $('.dbType:checked').length;
+    this.checkboxIsChecked = $('.custom-control-input:checked:checked').length;
 
     if (!this.checkboxIsChecked) {
       alert('You must check at least one checkbox.');
       return false;
     } else {
+      this.initChecboxValues();
       return true;
     }
   }
@@ -118,13 +122,11 @@ export class GetStudentByIdComponent {
       return true;
     }
   }
-
   constructPath() {
     this.id = this.constructID();
     this.dbUrl = this.constructDbUrl();
     this.path = this.url + this.id + '?' + this.dbUrl;
   }
-
   initResult() {
     this.constructPath();
 
@@ -134,10 +136,9 @@ export class GetStudentByIdComponent {
     });
 
   }
-
   constructDbUrl() {
     const dbTypes = [];
-    $('.dbType:checked').each(function () {
+    $('.custom-control-input:checked').each(function () {
       dbTypes.push('dbTypes=' + $(this).val().toString().toUpperCase() + '&');
     });
 
@@ -145,17 +146,35 @@ export class GetStudentByIdComponent {
       .slice(0, -1);
 
     const result: string = dbTypes.join('');
-
+    console.log(result);
     return result;
   }
-
   constructID() {
     const result: string = $('#searchId').val().toString();
 
     return result;
   }
+  initChecboxValues() {
+    this.mongoIsChecked = false;
+    this.mysqlIsChecked = false;
+    const that = this;
+    $('.custom-control-input:checked:checked').each(function () {
+       if ($(this).val().toString().toUpperCase() === 'MONGO') {
+        that.mongoIsChecked = true;
+       } else if ($(this).val().toString().toUpperCase() === 'MYSQL') {
+         that.mysqlIsChecked = true;
+       }
+    });
+  }
+  clearValues() {
+    this.mongoOutput = [];
+    this.mysqlOutput = [];
+    this.hasMongoErr = false;
+    this.hasMysqlErr = false;
+    this.mongoErrMsg = '';
+    this.mysqlErrMsg = '';
+  }
 }
-
 interface DbResponse {
   dbType: string;
   state: string;

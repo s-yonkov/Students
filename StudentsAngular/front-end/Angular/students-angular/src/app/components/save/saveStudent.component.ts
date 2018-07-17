@@ -45,7 +45,7 @@ export class SaveStudentComponent {
   }
   initDbTypes() {
     const dbTypes = [];
-    $('.dbType:checked').each(function () {
+    $('.custom-control-input:checked').each(function () {
       dbTypes.push($(this).val());
     });
     return dbTypes;
@@ -106,7 +106,7 @@ export class SaveStudentComponent {
     }
   }
   validateCheckbox() {
-    this.checkboxIsChecked = $('.dbType:checked').length;
+    this.checkboxIsChecked = $('.custom-control-input:checked:checked').length;
 
     if (!this.checkboxIsChecked) {
       alert('You must check at least one checkbox.');
@@ -122,7 +122,7 @@ export class SaveStudentComponent {
     });
   }
   clearForm() {
-    $('.dbType:checked').each(function () {
+    $('.custom-control-input:checked').each(function () {
       ($(this).prop('checked', false));
     });
     $('#id').val('');

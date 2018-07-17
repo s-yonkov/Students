@@ -5,61 +5,47 @@
     <div class="row col-md-6">
 
         <form ngNativeValidate (ngSubmit)="saveStudent()" #StudentForm="ngForm">
-            <label class="checkbox-inline">
-                <input type="checkbox" class="dbType" value="MONGO">Mongo
-            </label>
-            <label class="checkbox-inline">
-                <input type="checkbox" class="dbType" value="MYSQL">MySQL
-            </label>
+            <div class="custom-control custom-checkbox custom-control-inline">
+                <input type="checkbox" class="custom-control-input" id="MONGO" value="MONGO">
+                <label class="custom-control-label" for="MONGO">Mongo</label>
+            </div>
 
-        <hr />
+            <div class="custom-control custom-checkbox custom-control-inline">
+                <input type="checkbox" class="custom-control-input" id="MYSQL" value="MYSQL">
+                <label class="custom-control-label" for="MYSQL">MySQL</label>
+            </div>
+
+            <hr />
 
 
             <h3 style="color: blue">Student</h3>
             <div class="form-group">
-                <label for="id"><strong>ID:</strong></label>
-                <input type="number" class="form-control" id="id" placeholder="Enter ID" required min="1"
-                max="2147483647" />
+                <label for="id">
+                    <strong>ID:</strong>
+                </label>
+                <input type="number" class="form-control" id="id" placeholder="Enter ID" required min="1" max="2147483647" />
             </div>
             <div class="form-group">
-                <label for="name"><strong>Name:</strong></label>
-                <input type="text" class="form-control" id="name" placeholder="Enter Name" required pattern="[A-Za-z]*" title="The name can contain only letters a-z"/>
+                <label for="name">
+                    <strong>Name:</strong>
+                </label>
+                <input type="text" class="form-control" id="name" placeholder="Enter Name" required pattern="[A-Za-z]*" title="The name can contain only letters a-z"
+                />
             </div>
             <div class="form-group">
-                <label for="age"><strong>Age:</strong></label>
-                <input type="number" class="form-control" id="age" placeholder="Enter Age" required min="16"
-                max="99"/>
+                <label for="age">
+                    <strong>Age:</strong>
+                </label>
+                <input type="number" class="form-control" id="age" placeholder="Enter Age" required min="16" max="99" />
             </div>
             <div class="form-group">
-                <label for="grade"><strong>Grade:</strong></label>
-                <input type="number" class="form-control" id="grade" placeholder="Enter Grade" required min="2"
-                max="6"/>
+                <label for="grade">
+                    <strong>Grade:</strong>
+                </label>
+                <input type="number" class="form-control" id="grade" placeholder="Enter Grade" required min="2" max="6" />
             </div>
 
             <button style="margin-bottom: 10px" type="submit" class="btn btn-outline-primary">Add Student</button>
         </form>
     </div>
-
-    
-    <div class="row">
-        <div class="col-xs-12 col-md-6">
-            <h4>Mongo</h4>
-            <div *ngIf="showResult">
-                <div *ngFor="let record of mongoOutput">
-                    <p>{{record}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-6">
-            <h4>MySQL</h4>
-            <div *ngIf="showResult">
-                <div *ngFor="let record of mysqlOutput">
-                    <p>{{record}}</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
 </div>
