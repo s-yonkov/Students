@@ -1,11 +1,11 @@
 import { Component} from '@angular/core';
-import { GetAllStudentsService } from '../../services/getAll.service';
+import { GetStudentService } from '../../services/getAll.service';
 import * as $ from 'jquery';
 
 @Component({
   selector: 'app-get-all-students',
   templateUrl: './getAll.components.html',
-  providers: [GetAllStudentsService]
+  providers: [GetStudentService]
 })
 export class GetAllStudentsComponent {
 
@@ -19,7 +19,7 @@ export class GetAllStudentsComponent {
   path: string;
   readonly url = 'http://localhost:8080/api/student/all?';
 
-  constructor(private getAll: GetAllStudentsService) {
+  constructor(private getAll: GetStudentService) {
   }
 
   initValues() {

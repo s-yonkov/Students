@@ -4,17 +4,26 @@ import { map } from 'rxjs/operators';
 import { Observable, Subscribable } from '../../../node_modules/rxjs';
 
 @Injectable()
-export class GetStudentService {
+export class PostStudentService {
 
     result;
 
     constructor(private http: Http) {
         console.log('PostService Initialized...');
     }
-
-    getPosts(path: string) {
-        this.result = this.http.get(path).pipe(map(res => res.json()));
+    postStudent(path: string, input: Input) {
+        this.result = this.http.post(path, input).pipe(map(res => res.json()));
 
         return this.result;
     }
+}
+interface Input {
+    dbTypes: string[];
+    student: Student;
+}
+interface Student {
+    id: number;
+    name: string;
+    age: number;
+    grade: number;
 }

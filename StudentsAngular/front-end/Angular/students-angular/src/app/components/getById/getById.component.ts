@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GetAllStudentsService } from '../../services/getAll.service';
+import { GetStudentService } from '../../services/getAll.service';
 import * as $ from 'jquery';
 import { initChangeDetectorIfExisting } from '../../../../node_modules/@angular/core/src/render3/instructions';
 
@@ -7,7 +7,7 @@ import { initChangeDetectorIfExisting } from '../../../../node_modules/@angular/
 @Component({
   selector: 'app-get-by-id',
   templateUrl: './getById.components.html',
-  providers: [GetAllStudentsService]
+  providers: [GetStudentService]
 })
 export class GetStudentByIdComponent {
 
@@ -23,7 +23,7 @@ export class GetStudentByIdComponent {
   id: string;
   dbUrl: string;
 
-  constructor(private get: GetAllStudentsService) {
+  constructor(private get: GetStudentService) {
   }
 
   initValues() {
