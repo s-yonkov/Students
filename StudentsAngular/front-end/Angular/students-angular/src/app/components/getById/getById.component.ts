@@ -60,6 +60,7 @@ export class GetStudentByIdComponent {
       }
     });
   }
+
   initSuccessOutput(dbResponse) {
     switch (dbResponse.dbType) {
       case 'MONGO':
@@ -78,6 +79,7 @@ export class GetStudentByIdComponent {
         break;
     }
   }
+
   initErrOutput(dbResponse: DbResponse, message: string) {
     switch (dbResponse.dbType) {
       case 'MONGO':
@@ -93,6 +95,7 @@ export class GetStudentByIdComponent {
         break;
     }
   }
+
   showStudents() {
     if (this.validateCheckbox() && this.validateId()) {
       this.initResult();
@@ -101,6 +104,7 @@ export class GetStudentByIdComponent {
       this.showResult = false;
     }
   }
+
   validateCheckbox() {
     this.checkboxIsChecked = $('.custom-control-input:checked:checked').length;
 
@@ -112,6 +116,7 @@ export class GetStudentByIdComponent {
       return true;
     }
   }
+
   validateId() {
 
     if ($('#searchId').val() == null || $('#searchId').val() === ''
@@ -122,11 +127,13 @@ export class GetStudentByIdComponent {
       return true;
     }
   }
+
   constructPath() {
     this.id = this.constructID();
     this.dbUrl = this.constructDbUrl();
     this.path = this.url + this.id + '?' + this.dbUrl;
   }
+
   initResult() {
     this.constructPath();
 
@@ -136,6 +143,7 @@ export class GetStudentByIdComponent {
     });
 
   }
+
   constructDbUrl() {
     const dbTypes = [];
     $('.custom-control-input:checked').each(function () {
@@ -149,23 +157,26 @@ export class GetStudentByIdComponent {
     console.log(result);
     return result;
   }
+
   constructID() {
     const result: string = $('#searchId').val().toString();
 
     return result;
   }
+
   initChecboxValues() {
     this.mongoIsChecked = false;
     this.mysqlIsChecked = false;
     const that = this;
     $('.custom-control-input:checked:checked').each(function () {
-       if ($(this).val().toString().toUpperCase() === 'MONGO') {
+      if ($(this).val().toString().toUpperCase() === 'MONGO') {
         that.mongoIsChecked = true;
-       } else if ($(this).val().toString().toUpperCase() === 'MYSQL') {
-         that.mysqlIsChecked = true;
-       }
+      } else if ($(this).val().toString().toUpperCase() === 'MYSQL') {
+        that.mysqlIsChecked = true;
+      }
     });
   }
+
   clearValues() {
     this.mongoOutput = [];
     this.mysqlOutput = [];
@@ -175,6 +186,7 @@ export class GetStudentByIdComponent {
     this.mysqlErrMsg = '';
   }
 }
+
 interface DbResponse {
   dbType: string;
   state: string;

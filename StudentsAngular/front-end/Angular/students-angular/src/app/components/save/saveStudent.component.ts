@@ -12,11 +12,18 @@ export class SaveStudentComponent {
   dbResponses: DbResponse[];
   checkboxIsChecked: number;
   showResult: boolean;
-  mongoOutput: String[] = [];
-  mysqlOutput: String[] = [];
+  mongoOutput: Student[] = [];
+  mysqlOutput: Student[] = [];
   path: string;
   input: Input = Object();
   readonly url = 'http://localhost:8080/api/student/save';
+  mongoErrMsg: string;
+  mysqlErrMsg: string;
+  hasMongoErr: boolean;
+  hasMysqlErr: boolean;
+  mongoIsChecked: boolean;
+  mysqlIsChecked: boolean;
+
 
   constructor(private postStudent: PostStudentService) {
   }
@@ -29,10 +36,12 @@ export class SaveStudentComponent {
       this.clearForm();
     }
   }
+
   obtainInput() {
     this.input.dbTypes = this.initDbTypes();
     this.input.student = this.initStudent();
   }
+
   initStudent() {
     const student = Object();
 
@@ -43,6 +52,7 @@ export class SaveStudentComponent {
 
     return student;
   }
+
   initDbTypes() {
     const dbTypes = [];
     $('.custom-control-input:checked').each(function () {
@@ -50,11 +60,11 @@ export class SaveStudentComponent {
     });
     return dbTypes;
   }
+
   initResponse() {
     const that = this;
-    // Clear arrays before each call.
-    this.mongoOutput = [];
-    this.mysqlOutput = [];
+    // Clear values before each call.
+    this.clearValues();
 
     this.dbResponses.forEach(function (dbResponse) {
       switch (dbResponse.state) {
@@ -73,18 +83,17 @@ export class SaveStudentComponent {
       }
     });
   }
+
   initSuccessOutput(dbResponse) {
     switch (dbResponse.dbType) {
       case 'MONGO':
         dbResponse.students.students.forEach(student => {
-          this.mongoOutput.push('Id: ' + student.id + ' Name: ' + student.name + ' Age: '
-            + student.age + ' Grade: ' + student.grade + ' - Has been added');
+          this.mongoOutput.push(student);
         });
         break;
       case 'MYSQL':
         dbResponse.students.students.forEach(student => {
-          this.mysqlOutput.push('Id: ' + student.id + ' Name: ' + student.name + ' Age: '
-            + student.age + ' Grade: ' + student.grade + ' - Has been added');
+          this.mysqlOutput.push(student);
         });
         break;
       default:
@@ -92,19 +101,23 @@ export class SaveStudentComponent {
         break;
     }
   }
+
   initErrOutput(dbResponse: DbResponse, message: string) {
     switch (dbResponse.dbType) {
       case 'MONGO':
-        this.mongoOutput.push(message);
+        this.hasMongoErr = true;
+        this.mongoErrMsg = message;
         break;
       case 'MYSQL':
-        this.mysqlOutput.push(message);
+        this.hasMysqlErr = true;
+        this.mysqlErrMsg = message;
         break;
       default:
         console.log('Invalid Db in initErrOutput');
         break;
     }
   }
+
   validateCheckbox() {
     this.checkboxIsChecked = $('.custom-control-input:checked:checked').length;
 
@@ -112,15 +125,18 @@ export class SaveStudentComponent {
       alert('You must check at least one checkbox.');
       return false;
     } else {
+      this.initChecboxValues();
       return true;
     }
   }
+
   postRequest() {
     this.postStudent.postStudent(this.url, this.input).subscribe((result) => {
       this.dbResponses = result.dbResponses;
       this.initResponse();
     });
   }
+
   clearForm() {
     $('.custom-control-input:checked').each(function () {
       ($(this).prop('checked', false));
@@ -130,21 +146,47 @@ export class SaveStudentComponent {
     $('#age').val('');
     $('#grade').val('');
   }
+
+  clearValues() {
+    this.mongoOutput = [];
+    this.mysqlOutput = [];
+    this.hasMongoErr = false;
+    this.hasMysqlErr = false;
+    this.mongoErrMsg = '';
+    this.mysqlErrMsg = '';
+  }
+
+  initChecboxValues() {
+    this.mongoIsChecked = false;
+    this.mysqlIsChecked = false;
+    const that = this;
+    $('.custom-control-input:checked:checked').each(function () {
+      if ($(this).val().toString().toUpperCase() === 'MONGO') {
+        that.mongoIsChecked = true;
+      } else if ($(this).val().toString().toUpperCase() === 'MYSQL') {
+        that.mysqlIsChecked = true;
+      }
+    });
+  }
 }
+
 interface DbResponse {
   dbType: string;
   state: string;
   students: Students;
 }
+
 interface Student {
   id: number;
   name: string;
   age: number;
   grade: number;
 }
+
 interface Students {
   students: Student[];
 }
+
 interface Input {
   dbTypes: string[];
   student: Student;

@@ -1,10 +1,8 @@
 <div class="container">
 
-
-    <h3>Please choose database:</h3>
-    <div class="row col-md-6">
-
+    <div class="card text-center">
         <form ngNativeValidate (ngSubmit)="saveStudent()" #StudentForm="ngForm">
+            <h5>Please choose database:</h5>
             <div class="custom-control custom-checkbox custom-control-inline">
                 <input type="checkbox" class="custom-control-input" id="MONGO" value="MONGO">
                 <label class="custom-control-label" for="MONGO">Mongo</label>
@@ -18,7 +16,7 @@
             <hr />
 
 
-            <h3 style="color: blue">Student</h3>
+            <h4 style="color: blue">Student</h4>
             <div class="form-group">
                 <label for="id">
                     <strong>ID:</strong>
@@ -47,5 +45,78 @@
 
             <button style="margin-bottom: 10px" type="submit" class="btn btn-outline-primary">Add Student</button>
         </form>
+    </div>
+    <div class="row" *ngIf="showResult">
+
+        <div class="col-xs-12 col-md-6">
+            <div *ngIf="mongoIsChecked">
+                <div *ngIf="!hasMysqlErr">
+                    <p>
+                        <strong>Successfully added in:</strong>
+                    </p>
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-light">
+                            <caption>Mongo</caption>
+                            <tr class="table-primary">
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let student of mongoOutput">
+                                <td>{{student.id}}</td>
+                                <td>{{student.name}}</td>
+                                <td>{{student.age}}</td>
+                                <td>{{student.grade}}</td>
+                            </tr>
+                            <tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="hasMongoErr">
+                <h6>Mongo</h6>
+                <p>
+                    <strong>{{mongoErrMsg}}</strong>
+                </p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div *ngIf="mysqlIsChecked">
+                <div *ngIf="!hasMysqlErr">
+                    <p>
+                        <strong>Successfully added in:</strong>
+                    </p>
+                    <table class="table table table-bordered table-hover">
+                        <thead class="thead-light">
+                            <caption>MySQL</caption>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let student of mysqlOutput">
+                                <td>{{student.id}}</td>
+                                <td>{{student.name}}</td>
+                                <td>{{student.age}}</td>
+                                <td>{{student.grade}}</td>
+                            </tr>
+                            <tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="hasMysqlErr">
+                <h6>MySQL</h6>
+                <p>
+                    <strong>{{mysqlErrMsg}}</strong>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
