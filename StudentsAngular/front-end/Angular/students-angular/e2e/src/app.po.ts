@@ -1,11 +1,38 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element, protractor } from 'protractor';
 
 export class AppPage {
-  navigateTo() {
+  navigateToHomePage() {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  navigateToIdPage() {
+    return browser.get('/byId');
   }
+
+  navigateToSavePage() {
+    return browser.get('/save');
+  }
+
+  getParagraphText() {
+    return element(by.css('app-root h5')).getText();
+  }
+
+  getShowStudentsButton() {
+    return element(by.cssContainingText('button', 'Show students'));
+  }
+
+  getMongoCheckbox() {
+    return element(by.cssContainingText('.custom-control-label', 'Mongo'));
+  }
+
+  getMysqlCheckbox() {
+    return element(by.cssContainingText('.custom-control-label', 'MySQL'));
+  }
+
+  getAlertMessage() {
+    const alert = browser.switchTo().alert().getText();
+    return alert;
+  }
+
+
 }

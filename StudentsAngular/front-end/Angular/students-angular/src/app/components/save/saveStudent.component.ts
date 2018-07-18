@@ -119,7 +119,7 @@ export class SaveStudentComponent {
   }
 
   validateCheckbox() {
-    this.checkboxIsChecked = $('.custom-control-input:checked:checked').length;
+    this.checkboxIsChecked = $('.custom-control-input:checked').length;
 
     if (!this.checkboxIsChecked) {
       alert('You must check at least one checkbox.');
