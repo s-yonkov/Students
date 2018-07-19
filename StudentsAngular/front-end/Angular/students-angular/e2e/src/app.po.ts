@@ -34,5 +34,27 @@ export class AppPage {
     return alert;
   }
 
+  getMongoTable() {
+    return element(by.cssContainingText('table.table-bordered.table-hover', 'Mongo'));
+  }
 
+  getMySQLTable() {
+    return element(by.cssContainingText('table.table-bordered.table-hover', 'MySQL'));
+  }
+
+  checkIfMysqlTableIsPresented() {
+    if (element(by.cssContainingText('table.table-bordered.table-hover', 'MySQL')).isPresent()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  checkIfMongolTableIsPresented() {
+    if (element(by.cssContainingText('table.table-bordered.table-hover', 'Mongo')).isPresent()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

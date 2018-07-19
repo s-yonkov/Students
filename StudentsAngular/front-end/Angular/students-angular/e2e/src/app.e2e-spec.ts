@@ -7,6 +7,8 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
+  // Home page tests:
+
   // Clicking on Mongo from the checkbox and checking if it is selected
   it('should return if Mongo is selected from the checkbox', () => {
     page.navigateToHomePage();
@@ -25,6 +27,111 @@ describe('workspace-project App', () => {
     checkbox.click();
 
     expect(checkbox.isSelected());
+  });
+
+  // Clicking on Mongo checkbox and on the button and checking if the table with the results is shown
+  it('should show only Mongo table with results', () => {
+    page.navigateToHomePage();
+
+    const mongoCheckbox = page.getMongoCheckbox();
+    const mysqlCheckbox = page.getMysqlCheckbox();
+
+    mongoCheckbox.click();
+    expect(!mysqlCheckbox.isSelected());
+
+    page.getShowStudentsButton().click();
+
+    expect(page.getMongoTable().isDisplayed());
+    expect(!page.checkIfMysqlTableIsPresented());
+  });
+
+  // Clicking on MySQL checkbox and on the button and checking if the table with the results is shown
+  it('should show only MySQL table with results', () => {
+    page.navigateToHomePage();
+
+    const mongoCheckbox = page.getMongoCheckbox();
+    const mysqlCheckbox = page.getMysqlCheckbox();
+
+    mysqlCheckbox.click();
+    expect(!mongoCheckbox.isSelected());
+
+    page.getShowStudentsButton().click();
+
+    expect(page.getMySQLTable().isDisplayed());
+    expect(!page.checkIfMongolTableIsPresented());
+  });
+
+  // Clicking on All checkboxes and on the button and checking if all tables with results are shown
+  it('should show all tables with results', () => {
+    page.navigateToHomePage();
+
+    const mongoCheckbox = page.getMongoCheckbox();
+    const mysqlCheckbox = page.getMysqlCheckbox();
+
+    mysqlCheckbox.click();
+    mongoCheckbox.click();
+
+    page.getShowStudentsButton().click();
+
+    expect(page.getMySQLTable().isDisplayed());
+    expect(page.getMongoTable().isDisplayed());
+  });
+
+  // Clicking on All checkboxes and than only on Mongo
+  // and on the button and checking if only Mongo table with results is shown
+  it('should show only Mongo table with results', () => {
+    page.navigateToHomePage();
+
+    const mongoCheckbox = page.getMongoCheckbox();
+    const mysqlCheckbox = page.getMysqlCheckbox();
+
+    mysqlCheckbox.click();
+    mongoCheckbox.click();
+    mysqlCheckbox.click();
+
+    page.getShowStudentsButton().click();
+
+    expect(page.getMongoTable().isDisplayed());
+    expect(!page.checkIfMysqlTableIsPresented());
+  });
+
+  // Clicking on All checkboxes and than only on MySQL
+  // and on the button and checking if only MySQL table with results is shown
+  it('should show only MySQL table with results', () => {
+    page.navigateToHomePage();
+
+    const mongoCheckbox = page.getMongoCheckbox();
+    const mysqlCheckbox = page.getMysqlCheckbox();
+
+    mysqlCheckbox.click();
+    mongoCheckbox.click();
+    mongoCheckbox.click();
+
+    page.getShowStudentsButton().click();
+
+    expect(page.getMySQLTable().isDisplayed());
+    expect(!page.checkIfMongolTableIsPresented());
+  });
+
+  // Clicking on All checkboxes and than on the button and only on MySQL
+  // and on the button again and checking if only Mongo table with results is shown
+  it('should show only Mongo table with results', () => {
+    page.navigateToHomePage();
+
+    const mongoCheckbox = page.getMongoCheckbox();
+    const mysqlCheckbox = page.getMysqlCheckbox();
+
+    mysqlCheckbox.click();
+    mongoCheckbox.click();
+
+    page.getShowStudentsButton().click();
+
+    mysqlCheckbox.click();
+
+    page.getShowStudentsButton().click();
+
+    expect(page.getMongoTable().isDisplayed());
+    expect(!page.checkIfMysqlTableIsPresented());
   });
 
   // Checking if text is presented on the Home page
