@@ -76,9 +76,9 @@
                     </table>
                 </div>
             </div>
-            <div *ngIf="hasMongoErr">
+            <div class='errMsg' *ngIf="hasMongoErr">
                 <h6>Mongo</h6>
-                <p>
+                <p class='errParagraph'>
                     <strong>{{mongoErrMsg}}</strong>
                 </p>
             </div>
@@ -111,9 +111,9 @@
                     </table>
                 </div>
             </div>
-            <div *ngIf="hasMysqlErr">
+            <div class='errMsg' *ngIf="hasMysqlErr">
                 <h6>MySQL</h6>
-                <p>
+                <p class='errParagraph'>
                     <strong>{{mysqlErrMsg}}</strong>
                 </p>
             </div>

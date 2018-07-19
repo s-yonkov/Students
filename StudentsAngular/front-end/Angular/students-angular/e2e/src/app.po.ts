@@ -29,8 +29,8 @@ export class AppPage {
     return element(by.cssContainingText('.custom-control-label', 'MySQL'));
   }
 
-  getAlertMessage() {
-    const alert = browser.switchTo().alert().getText();
+  getAlert() {
+    const alert = browser.switchTo().alert();
     return alert;
   }
 
@@ -56,5 +56,30 @@ export class AppPage {
     } else {
       return false;
     }
+  }
+
+  getShowStudentByIDButton() {
+    return element(by.cssContainingText('button', 'Show student'));
+  }
+
+  getIdInputField() {
+    return element(by.css('#searchId'));
+  }
+
+  getErrorDiv() {
+    return element(by.css('.errMsg'));
+  }
+
+  getErrorParagraph() {
+    return element(by.css('.errParagraph'));
+  }
+
+  getActiveElement() {
+    const active = browser.switchTo().activeElement();
+    return active;
+  }
+
+  getSaveStudentButton() {
+    return element(by.cssContainingText('button', 'Add Student'));
   }
 }

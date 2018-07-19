@@ -1,6 +1,6 @@
-import { AppPage } from './app.po';
+import { AppPage } from '../app.po';
 
-describe('workspace-project App', () => {
+describe('Test get all page', () => {
   let page: AppPage;
 
   beforeEach(() => {
@@ -8,6 +8,21 @@ describe('workspace-project App', () => {
   });
 
   // Home page tests:
+
+  // Checking if text is presented on the Home page
+  it('should display message to choose database', () => {
+    page.navigateToHomePage();
+    expect(page.getParagraphText()).toEqual('Please choose database:');
+  });
+
+  // Clicking the button "Show All Students" without selecting DB - should expect alert message to select at least one DB
+  it('should dispaly error mesage to choose at least one checkbox when there are no selected checkboxes', () => {
+    page.navigateToHomePage();
+
+    page.getShowStudentsButton().click();
+    expect(page.getAlert().getText()).toEqual('You must check at least one checkbox.');
+    page.getAlert().accept();
+  });
 
   // Clicking on Mongo from the checkbox and checking if it is selected
   it('should return if Mongo is selected from the checkbox', () => {
@@ -134,17 +149,5 @@ describe('workspace-project App', () => {
     expect(!page.checkIfMysqlTableIsPresented());
   });
 
-  // Checking if text is presented on the Home page
-  it('should display message to choose database', () => {
-    page.navigateToHomePage();
-    expect(page.getParagraphText()).toEqual('Please choose database:');
-  });
 
-  // Clicking the button "Show All Students" without selecting DB - should expect alert message to select at least one DB
-  it('should dispaly error mesage to choose at least one checkbox when there are no selected checkboxes', () => {
-    page.navigateToHomePage();
-
-    page.getShowStudentsButton().click();
-    expect(page.getAlertMessage()).toEqual('You must check at least one checkbox.');
-  });
 });
