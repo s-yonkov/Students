@@ -1,6 +1,7 @@
 import { PostStudentService } from './../../services/postStudent.service';
 import { Component } from '@angular/core';
 import * as $ from 'jquery';
+import { Student } from '../../student.model';
 
 @Component({
   selector: 'app-save',
@@ -23,6 +24,7 @@ export class SaveStudentComponent {
   hasMysqlErr: boolean;
   mongoIsChecked: boolean;
   mysqlIsChecked: boolean;
+  student = new Student();
 
 
   constructor(private postStudent: PostStudentService) {
@@ -30,27 +32,16 @@ export class SaveStudentComponent {
 
   saveStudent() {
     if (this.validateCheckbox()) {
-      this.obtainInput();
+      this.initInput();
       this.postRequest();
       this.showResult = true;
       this.clearForm();
     }
   }
 
-  obtainInput() {
+  initInput() {
     this.input.dbTypes = this.initDbTypes();
-    this.input.student = this.initStudent();
-  }
-
-  initStudent() {
-    const student = Object();
-
-    student.id = $('#id').val();
-    student.name = $('#name').val();
-    student.age = $('#age').val();
-    student.grade = $('#grade').val();
-
-    return student;
+    this.input.student = this.student;
   }
 
   initDbTypes() {
@@ -154,6 +145,7 @@ export class SaveStudentComponent {
     this.hasMysqlErr = false;
     this.mongoErrMsg = '';
     this.mysqlErrMsg = '';
+    this.student = new Student();
   }
 
   initChecboxValues() {
@@ -174,13 +166,6 @@ interface DbResponse {
   dbType: string;
   state: string;
   students: Students;
-}
-
-interface Student {
-  id: number;
-  name: string;
-  age: number;
-  grade: number;
 }
 
 interface Students {

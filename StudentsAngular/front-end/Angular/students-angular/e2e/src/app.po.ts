@@ -82,4 +82,8 @@ export class AppPage {
   getSaveStudentButton() {
     return element(by.cssContainingText('button', 'Add Student'));
   }
+
+  getErr() {
+    return element(by.css('.is-invalid'));
+  }
 }

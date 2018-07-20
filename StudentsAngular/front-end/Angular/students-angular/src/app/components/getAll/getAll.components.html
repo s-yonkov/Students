@@ -25,7 +25,7 @@
         <table *ngIf="!hasMongoErr" class="table table-bordered table-hover">
           <thead class="thead-light">
             <caption>Mongo</caption>
-            <tr class="table-primary">
+            <tr>
               <th scope="col">Id</th>
               <th scope="col">Name</th>
               <th scope="col">Age</th>
@@ -45,7 +45,7 @@
       </div>
       <div class='errMsg' *ngIf="hasMongoErr">
         <h6>Mongo</h6>
-        <p >
+        <p>
           <strong>{{mongoErrMsg}}</strong>
         </p>
       </div>

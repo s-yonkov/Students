@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { GetAllStudentsComponent } from './components/getAll/getAll.component';
 import { GetStudentByIdComponent } from './components/getById/getById.component';
 import { SaveStudentComponent } from './components/save/saveStudent.component';
+import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SaveStudentComponent } from './components/save/saveStudent.component';
   imports: [
     BrowserModule,
     FormsModule,
+    CustomFormsModule,
     HttpModule,
     AlertModule.forRoot(),
     routing
