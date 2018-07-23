@@ -83,7 +83,40 @@ export class AppPage {
     return element(by.cssContainingText('button', 'Add Student'));
   }
 
-  getErr() {
-    return element(by.css('.is-invalid'));
+  getIdInput() {
+    return element(by.css('#id'));
   }
+
+  getValidations() {
+    return element.all(by.css('.alert-danger'));
+  }
+
+  getNameInput() {
+    return element(by.css('#name'));
+  }
+
+  getAgeInput() {
+    return element(by.css('#age'));
+  }
+
+  getGradeInput() {
+    return element(by.css('#grade'));
+  }
+
+  refresgPage() {
+    browser.refresh();
+  }
+
+  pouseBrowser() {
+    browser.pause(5000);
+  }
+
+  checkIftSuccessfullAddInMongo() {
+    return element(by.cssContainingText('.mongo-success', 'Successfully added in:')).isDisplayed();
+  }
+
+  checkIfSuccessfullAddInMySQL() {
+    return element(by.cssContainingText('.mysql-success', 'Successfully added in:')).isDisplayed();
+  }
+
 }
