@@ -1,0 +1,84 @@
+<div class="container">
+
+  <div class="card text-center">
+    <div class="card-body">
+      <h5>Please choose database:</h5>
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input type="checkbox" class="custom-control-input" id="MONGO" value="MONGO">
+        <label class="custom-control-label" for="MONGO">Mongo</label>
+      </div>
+
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input type="checkbox" class="custom-control-input" id="MYSQL" value="MYSQL">
+        <label class="custom-control-label" for="MYSQL">MySQL</label>
+      </div>
+    </div>
+
+    <div>
+      <button (click)="showStudents()" class="btn btn-primary">Show students</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="showResult">
+
+    <div class="col-xs-12 col-md-6">
+      <div *ngIf="mongoIsChecked">
+        <table *ngIf="!hasMongoErr" class="table table-bordered table-hover">
+          <thead class="thead-light">
+            <caption>Mongo</caption>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Age</th>
+              <th scope="col">Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of mongoOutput">
+              <td>{{student.id}}</td>
+              <td>{{student.name}}</td>
+              <td>{{student.age}}</td>
+              <td>{{student.grade}}</td>
+            </tr>
+            <tr>
+          </tbody>
+        </table>
+      </div>
+      <div class='errMsg' *ngIf="hasMongoErr">
+        <h6>Mongo</h6>
+        <p>
+          <strong>{{mongoErrMsg}}</strong>
+        </p>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div *ngIf="mysqlIsChecked">
+        <table *ngIf="!hasMysqlErr" class="table table table-bordered table-hover">
+          <thead class="thead-light">
+            <caption>MySQL</caption>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Age</th>
+              <th scope="col">Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of mysqlOutput">
+              <td>{{student.id}}</td>
+              <td>{{student.name}}</td>
+              <td>{{student.age}}</td>
+              <td>{{student.grade}}</td>
+            </tr>
+            <tr>
+          </tbody>
+        </table>
+      </div>
+      <div class='errMsg' *ngIf="hasMysqlErr">
+        <h6>MySQL</h6>
+        <p>
+          <strong>{{mysqlErrMsg}}</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

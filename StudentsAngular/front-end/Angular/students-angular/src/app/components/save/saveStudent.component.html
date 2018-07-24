@@ -1,0 +1,154 @@
+<div class="container">
+
+    <div class="card text-center">
+        <form (ngSubmit)="saveStudent(); StudentForm.resetForm()" #StudentForm="ngForm">
+            <h5>Please choose database:</h5>
+            <div class="custom-control custom-checkbox custom-control-inline">
+                <input type="checkbox" class="custom-control-input" id="MONGO" value="MONGO">
+                <label class="custom-control-label" for="MONGO">Mongo</label>
+            </div>
+
+            <div class="custom-control custom-checkbox custom-control-inline">
+                <input type="checkbox" class="custom-control-input" id="MYSQL" value="MYSQL">
+                <label class="custom-control-label" for="MYSQL">MySQL</label>
+            </div>
+            <hr />
+            <h4 style="color: blue ">Student</h4>
+            <div class="form-group">
+                <label for="id">
+                    <strong>ID:</strong>
+                </label>
+                <input type="number" class="form-control" id="id" placeholder="Enter ID" required [range]="[1, 2147483647]" [(ngModel)]="student.id"
+                    name="id" #id="ngModel" />
+                <div *ngIf="id.errors && (id.dirty || id.touched)" class="alert alert-danger" id="errId">
+                    <div *ngIf="id.errors.required">
+                        ID is required!
+                    </div>
+                    <div *ngIf="id.errors?.range">
+                        ID should be in range 1 - 2147483647!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name">
+                    <strong>Name:</strong>
+                </label>
+                <input type="text" class="form-control" id="name" placeholder="Enter Name" required minlength="2" [(ngModel)]="student.name"
+                    name="name" #name="ngModel" />
+                <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+                    <div *ngIf="name.errors.required">
+                        Name is required!
+                    </div>
+                    <div *ngIf="name.errors?.minlength">
+                        Name should be at least 2 characters long!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="age">
+                    <strong>Age:</strong>
+                </label>
+                <input type="number" class="form-control" id="age" placeholder="Enter Age" required [range]="[16, 99]" [(ngModel)]="student.age"
+                    name="age" #age="ngModel" />
+                <div *ngIf="age.errors && (age.dirty || age.touched)" class="alert alert-danger">
+                    <div *ngIf="age.errors.required">
+                        Age is required!
+                    </div>
+                    <div *ngIf="age.errors?.range">
+                        Age should be in range 16 - 99!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="grade">
+                    <strong>Grade:</strong>
+                </label>
+                <input type="number" class="form-control" id="grade" placeholder="Enter Grade" required [range]="[2, 6]" [(ngModel)]="student.grade"
+                    name="grade" #grade="ngModel" />
+                <div *ngIf="grade.errors && (grade.dirty || grade.touched)" class="alert alert-danger">
+                    <div *ngIf="grade.errors.required">
+                        Grade is required!
+                    </div>
+                    <div *ngIf="grade.errors?.range">
+                        Grade should be in range 2 - 6!
+                    </div>
+                </div>
+            </div>
+            <button style="margin-bottom: 10px " type="submit " [disabled]="!StudentForm.form.valid" class="btn btn-outline-primary">Add Student</button>
+        </form>
+
+    </div>
+    <div class="row " *ngIf="showResult ">
+
+        <div class="col-xs-12 col-md-6 ">
+            <div *ngIf="mongoIsChecked ">
+                <div *ngIf="!hasMysqlErr ">
+                    <p class="mongo-success">
+                        <strong>Successfully added in:</strong>
+                    </p>
+                    <table class="table table-bordered table-hover ">
+                        <thead class="thead-light ">
+                            <caption>Mongo</caption>
+                            <tr class="table-primary ">
+                                <th scope="col ">Id</th>
+                                <th scope="col ">Name</th>
+                                <th scope="col ">Age</th>
+                                <th scope="col ">Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let student of mongoOutput ">
+                                <td>{{student.id}}</td>
+                                <td>{{student.name}}</td>
+                                <td>{{student.age}}</td>
+                                <td>{{student.grade}}</td>
+                            </tr>
+                            <tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class='errMsg' *ngIf="hasMongoErr ">
+                <h6>Mongo</h6>
+                <p class='errParagraph'>
+                    <strong>{{mongoErrMsg}}</strong>
+                </p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6 ">
+            <div *ngIf="mysqlIsChecked ">
+                <div *ngIf="!hasMysqlErr ">
+                    <p class="mysql-success">
+                        <strong>Successfully added in:</strong>
+                    </p>
+                    <table class="table table table-bordered table-hover ">
+                        <thead class="thead-light ">
+                            <caption>MySQL</caption>
+                            <tr>
+                                <th scope="col ">Id</th>
+                                <th scope="col ">Name</th>
+                                <th scope="col ">Age</th>
+                                <th scope="col ">Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let student of mysqlOutput ">
+                                <td>{{student.id}}</td>
+                                <td>{{student.name}}</td>
+                                <td>{{student.age}}</td>
+                                <td>{{student.grade}}</td>
+                            </tr>
+                            <tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class='errMsg' *ngIf="hasMysqlErr ">
+                <h6>MySQL</h6>
+                <p class='errParagraph'>
+                    <strong>{{mysqlErrMsg}}</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
