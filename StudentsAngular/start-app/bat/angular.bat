@@ -1,0 +1,2 @@
+cd %ANGULAR_APP_LOCATION%
+ng serve
